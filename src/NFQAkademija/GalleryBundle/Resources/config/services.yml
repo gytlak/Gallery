@@ -1,0 +1,7 @@
+parameters:
+#    nfq_akademija_gallery.example.class: NFQAkademija\GalleryBundle\Example
+
+services:
+#    nfq_akademija_gallery.example:
+#        class: %nfq_akademija_gallery.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

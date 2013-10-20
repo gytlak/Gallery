@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    {% block head %}
+        <meta charset="UTF-8" />
+        <title>Gallery - {% block title %}{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% endblock %}
+    </head>
+    <body>
+        <header id="banner">
+            <h1>Gallery</h1>
+        </header>
+        <section id="content">{% block content %}{% endblock %}</section>
+        <footer id="footer">
+        {% block footer %}
+            &copy; Copyright 2013 by Gytis Lakavičius.
+        {% endblock %}
+        </footer>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
