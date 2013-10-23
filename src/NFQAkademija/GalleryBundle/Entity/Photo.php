@@ -29,9 +29,8 @@ class Photo
     private $userId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="albumId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="users_id", referencedColumnName="id")
      */
     private $albumId;
 

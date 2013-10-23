@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Album form{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+        {{ form(album_form) }}
+
+{% endblock %}

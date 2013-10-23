@@ -3,6 +3,7 @@
 namespace NFQAkademija\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Album
@@ -22,9 +23,8 @@ class Album
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $userId;
 
@@ -59,7 +59,8 @@ class Album
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creationDate", type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="creationDate", type="datetime", nullable=TRUE)
      */
     private $creationDate;
 

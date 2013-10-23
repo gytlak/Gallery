@@ -1,4 +1,4 @@
-nfq_akademija_gallery:
+nfqakademija_gallery:
     resource: "@NFQAkademijaGalleryBundle/Resources/config/routing.yml"
     prefix:   /
 
