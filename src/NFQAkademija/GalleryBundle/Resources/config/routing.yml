@@ -6,12 +6,12 @@ nfqakademija_gallery_homepage:
 
 nfqakademija_galleryadmin_homepage:
     path: /admin/
-    defaults: { _controller: NFQAkademijaGalleryBundle:Default:index }
+    defaults: { _controller: NFQAkademijaGalleryBundle:Album:index }
 
 nfqakademija_album_form:
     pattern: /admin/album/form/
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:form }
 
 nfqakademija_album_post:
-    pattern: /admin/album/post/
+    pattern: /admin/album/
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:post }

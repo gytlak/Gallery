@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Albums{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block menu %}
+    <a href="{{ path('nfqakademija_album_form') }}">Create new album</a>
+{% endblock %}
+
+{% block content %}
+
+    {% for album in albums %}
+        <div id="section">
+            <span class="title">{{ album.name }}</span>
+            <span class="createdBy">Created by: {{ album.userId.username }}</span>
+            <span class="shortDescription">{{ album.shortDescription }}</span>
+            <span class="place">{{ album.place }}</span>
+            <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
+        </div>
+    {% endfor %}
+
+{% endblock %}

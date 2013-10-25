@@ -3,6 +3,7 @@
 namespace NFQAkademija\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Photo
@@ -22,15 +23,15 @@ class Photo
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="users_id", referencedColumnName="id")
+     * @var integer
+     *
+     * @ORM\Column(name="albumId", type="integer")
      */
     private $albumId;
 
@@ -40,6 +41,22 @@ class Photo
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var datetime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     /**
      * @var string
@@ -62,6 +79,14 @@ class Photo
      */
     private $photoUrl;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbUrl", type="string", length=255)
+     */
+    private $thumbUrl;
+
+
 
     /**
      * Get id
@@ -71,29 +96,6 @@ class Photo
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Photo
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -140,6 +142,52 @@ class Photo
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Photo
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Photo
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
@@ -212,15 +260,48 @@ class Photo
     }
 
     /**
-     * Set id
+     * Set thumbUrl
      *
-     * @param integer $id
+     * @param string $thumbUrl
      * @return Photo
      */
-    public function setId($id)
+    public function setThumbUrl($thumbUrl)
     {
-        $this->id = $id;
+        $this->thumbUrl = $thumbUrl;
     
         return $this;
+    }
+
+    /**
+     * Get thumbUrl
+     *
+     * @return string 
+     */
+    public function getThumbUrl()
+    {
+        return $this->thumbUrl;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \NFQAkademija\GalleryBundle\Entity\User $userId
+     * @return Photo
+     */
+    public function setUserId(\NFQAkademija\GalleryBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+    
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \NFQAkademija\GalleryBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

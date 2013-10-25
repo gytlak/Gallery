@@ -57,12 +57,20 @@ class Album
     private $place;
 
     /**
-     * @var \DateTime
+     * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="creationDate", type="datetime", nullable=TRUE)
+     * @ORM\Column(type="datetime")
      */
-    private $creationDate;
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     /**
      * @var integer
@@ -80,29 +88,6 @@ class Album
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Album
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -198,26 +183,49 @@ class Album
     }
 
     /**
-     * Set creationDate
+     * Set created
      *
-     * @param \DateTime $creationDate
+     * @param \DateTime $created
      * @return Album
      */
-    public function setCreationDate($creationDate)
+    public function setCreated($created)
     {
-        $this->creationDate = $creationDate;
+        $this->created = $created;
     
         return $this;
     }
 
     /**
-     * Get creationDate
+     * Get created
      *
      * @return \DateTime 
      */
-    public function getCreationDate()
+    public function getCreated()
     {
-        return $this->creationDate;
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Album
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
@@ -244,15 +252,25 @@ class Album
     }
 
     /**
-     * Set id
+     * Set userId
      *
-     * @param integer $id
+     * @param \NFQAkademija\GalleryBundle\Entity\User $userId
      * @return Album
      */
-    public function setId($id)
+    public function setUserId(\NFQAkademija\GalleryBundle\Entity\User $userId = null)
     {
-        $this->id = $id;
+        $this->userId = $userId;
     
         return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \NFQAkademija\GalleryBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

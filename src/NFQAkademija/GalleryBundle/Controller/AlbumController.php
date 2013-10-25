@@ -9,6 +9,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AlbumController extends Controller
 {
+    public function indexAction()
+    {
+        $albums = $this->getDoctrine()
+            ->getRepository('NFQAkademijaGalleryBundle:Album')
+            ->findBy(array(), array('id' => 'DESC'), 10);
+
+        return $this->render(
+            'NFQAkademijaGalleryBundle:Album:index.html.twig',
+            array(
+                'albums' => $albums
+            )
+        );
+    }
+
     public function formAction()
     {
         $album_form = $this->createForm(
