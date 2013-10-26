@@ -1,8 +1,6 @@
 nfqakademija_gallery_homepage:
     path: /
-    defaults: { _controller: NFQAkademijaGalleryBundle:Default:index }
-
-
+    defaults: { _controller: NFQAkademijaGalleryBundle:Album:index }
 
 nfqakademija_galleryadmin_homepage:
     path: /admin/

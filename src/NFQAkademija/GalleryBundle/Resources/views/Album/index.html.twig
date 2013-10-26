@@ -5,20 +5,21 @@
     {{ parent() }}
 {% endblock %}
 
-{% block menu %}
-    <a href="{{ path('nfqakademija_album_form') }}">Create new album</a>
-{% endblock %}
-
 {% block content %}
 
+    <div class="row">
     {% for album in albums %}
-        <div id="section">
-            <span class="title">{{ album.name }}</span>
-            <span class="createdBy">Created by: {{ album.userId.username }}</span>
-            <span class="shortDescription">{{ album.shortDescription }}</span>
-            <span class="place">{{ album.place }}</span>
+        <div class="col-6 col-sm-6 col-lg-4">
+            <h2>{{ album.name }}</h2>
             <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
-        </div>
+            <p>
+                Created by: {{ album.userId.username }}<br/>
+                {{ album.shortDescription }}<br/>
+                {{ album.place }}<br/>
+            </p>
+            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
     {% endfor %}
+    </div><!-- /.row -->
 
 {% endblock %}
