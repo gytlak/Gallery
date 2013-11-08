@@ -25,6 +25,22 @@ class AlbumController extends Controller
         );
     }
 
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $album = $em->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
+
+        if (!$album) {
+            throw $this->createNotFoundException('No album found for id '.$id);
+        }
+
+        $em->remove($album);
+        $em->flush();
+
+        return new Response(json_encode(array('status' => 'OK')));
+    }
+
     public function formAction($id)
     {
         $em = $this->getDoctrine()->getManager();

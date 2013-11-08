@@ -17,6 +17,9 @@
                 {{ album.place }}<br/>
             </p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p><a class="btn delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}">Delete</a></p>
+            {% endif %}
         </div>
     {% endfor %}
 

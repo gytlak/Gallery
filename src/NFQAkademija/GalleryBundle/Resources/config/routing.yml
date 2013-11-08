@@ -10,7 +10,13 @@ nfqakademija_album_form:
     pattern: /admin/album/form/{id}
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:form, id: 0 }
     requirements:
-            page:  \d+
+            id:  \d+
+
+nfqakademija_album_delete:
+    pattern: /admin/album/delete/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Album:delete }
+    requirements:
+            id:  \d+
 
 nfqakademija_album_post:
     pattern: /admin/album/
