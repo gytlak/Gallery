@@ -40,6 +40,7 @@
      */
     DeleteAlbumButton.prototype._handleResponse = function(data)
     {
+        this.element.parents(".item").css( "background-color", "#E8CDCC" );
         if (data.status != 'OK') {
             alert('Error handling response');
         }

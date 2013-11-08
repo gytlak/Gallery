@@ -6,6 +6,8 @@ body {
 .item {
     float: left;
     height: 200px;
+    overflow: hidden;
+    text-overflow: clip;
     width: 23%;
     margin: 0.5%;
     padding: 0.5%;

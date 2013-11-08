@@ -9,11 +9,11 @@
 
     {% for album in albums %}
         <div class="item">
-            <h2>{{ album.name }}</h2>
+            <nobr><h2>{{ album.name }}</h2></nobr>
             <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
             <p>
                 Created by: {{ album.userId.username }}<br/>
-                {{ album.shortDescription }}<br/>
+                <nobr>{{ album.shortDescription }}</nobr><br/>
                 {{ album.place }}<br/>
             </p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
