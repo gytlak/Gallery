@@ -1,7 +1,7 @@
 parameters:
-#    nfq_akademija_gallery.example.class: NFQAkademija\GalleryBundle\Example
+    nfqakademija_gallery.album_service.class: NFQAkademija\GalleryBundle\Service\AlbumService
 
 services:
-#    nfq_akademija_gallery.example:
-#        class: %nfq_akademija_gallery.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    nfqakademija_gallery.album_service:
+        class: %nfqakademija_gallery.album_service.class%
+        arguments: [@doctrine.orm.entity_manager]

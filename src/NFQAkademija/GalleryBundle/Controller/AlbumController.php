@@ -3,6 +3,7 @@ namespace NFQAkademija\GalleryBundle\Controller;
 
 use NFQAkademija\GalleryBundle\Entity\Album;
 use NFQAkademija\GalleryBundle\Form\AlbumType;
+use NFQAkademija\WallBundle\Service\AlbumService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,9 +12,10 @@ class AlbumController extends Controller
 {
     public function indexAction()
     {
-        $albums = $this->getDoctrine()
-            ->getRepository('NFQAkademijaGalleryBundle:Album')
-            ->findBy(array(), array('id' => 'DESC'), 10);
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+
+        $albums = $albumService->getAlbums();
 
         return $this->render(
             'NFQAkademijaGalleryBundle:Album:index.html.twig',
@@ -23,11 +25,19 @@ class AlbumController extends Controller
         );
     }
 
-    public function formAction()
+    public function formAction($id)
     {
-        $album_form = $this->createForm(
+        $em = $this->getDoctrine()->getManager();
+
+        $album = $em->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
+
+        if (!$album) {
+            $album = new Album();
+        }
+
+        $form = $this->createForm(
             new AlbumType(),
-            new Album(),
+            $album,
             array(
                 'action' => $this->generateUrl('nfqakademija_album_post'),
             )
@@ -36,7 +46,7 @@ class AlbumController extends Controller
         return $this->render(
             'NFQAkademijaGalleryBundle:Album:form.html.twig',
             array(
-                'album_form' => $album_form->createView()
+                'album_form' => $form->createView()
             )
         );
     }
@@ -48,10 +58,9 @@ class AlbumController extends Controller
         $form = $this->createForm(new AlbumType(), new Album());
 
         $form->handleRequest($request);
-
+        // REIKIA TAISYTI (REDAGUOJANT ALBUMĄ, SUKURIAMAS NAUJAS)
         if ($form->isValid()) {
             $album = $form->getData();
-
             $album = $album->setUserId($user);
             $em->persist($album);
             $em->flush();

@@ -7,9 +7,8 @@
 
 {% block content %}
 
-    <div class="row">
     {% for album in albums %}
-        <div class="col-6 col-sm-6 col-lg-4">
+        <div class="item">
             <h2>{{ album.name }}</h2>
             <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
             <p>
@@ -17,9 +16,8 @@
                 {{ album.shortDescription }}<br/>
                 {{ album.place }}<br/>
             </p>
-            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
     {% endfor %}
-    </div><!-- /.row -->
 
 {% endblock %}

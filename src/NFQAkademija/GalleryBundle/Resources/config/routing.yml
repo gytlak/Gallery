@@ -7,8 +7,10 @@ nfqakademija_galleryadmin_homepage:
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:index }
 
 nfqakademija_album_form:
-    pattern: /admin/album/form/
-    defaults: { _controller: NFQAkademijaGalleryBundle:Album:form }
+    pattern: /admin/album/form/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Album:form, id: 0 }
+    requirements:
+            page:  \d+
 
 nfqakademija_album_post:
     pattern: /admin/album/

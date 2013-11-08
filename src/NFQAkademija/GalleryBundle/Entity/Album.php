@@ -129,7 +129,7 @@ class Album
     /**
      * Get shortDescription
      *
-     * @return string 
+     * @return string updated
      */
     public function getShortDescription()
     {
