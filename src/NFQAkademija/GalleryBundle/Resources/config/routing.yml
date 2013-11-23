@@ -2,12 +2,32 @@ nfqakademija_gallery_homepage:
     path: /
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:index }
 
-nfqakademija_galleryadmin_homepage:
-    path: /admin/
-    defaults: { _controller: NFQAkademijaGalleryBundle:Album:index }
+nfqakademija_gallery_album:
+    path: /album/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Photo:index }
+    requirements:
+                id:  \d+
+
+nfqakademija_photo_form:
+    pattern: /admin/photo/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Photo:form, id: 0 }
+    requirements:
+            id:  \d+
+
+nfqakademija_photo_delete:
+    pattern: /admin/photo/delete/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Photo:delete }
+    requirements:
+            id:  \d+
+
+nfqakademija_photo_post:
+    pattern: /admin/photo/post/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Photo:post, id: 0 }
+    requirements:
+            id:  \d+
 
 nfqakademija_album_form:
-    pattern: /admin/album/form/{id}
+    pattern: /admin/album/{id}
     defaults: { _controller: NFQAkademijaGalleryBundle:Album:form, id: 0 }
     requirements:
             id:  \d+
@@ -19,5 +39,7 @@ nfqakademija_album_delete:
             id:  \d+
 
 nfqakademija_album_post:
-    pattern: /admin/album/
-    defaults: { _controller: NFQAkademijaGalleryBundle:Album:post }
+    pattern: /admin/album/post/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Album:post, id: 0 }
+    requirements:
+            id:  \d+

@@ -5,17 +5,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AlbumType extends AbstractType
+class PhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
             ->add('shortDescription')
-            ->add('fullDescription')
-            ->add('place')
-            ->add('shortDescription')
-            ->add('titlePhoto')
+            ->add('photoDate')
+            ->add('album', 'entity', array(
+                'class' => 'NFQAkademijaGalleryBundle:Album',
+                'multiple'  => true))
+            ->add('photoUrl')
+            ->add('thumbUrl')
             ->add('save', 'submit');
     }
 
@@ -23,13 +25,13 @@ class AlbumType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'NFQAkademija\GalleryBundle\Entity\Album'
+                'data_class' => 'NFQAkademija\GalleryBundle\Entity\Photo'
             )
         );
     }
 
     public function getName()
     {
-        return 'nfqakademija_gallerybundle_albumtype';
+        return 'nfqakademija_gallerybundle_phototype';
     }
 }

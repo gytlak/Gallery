@@ -3,18 +3,18 @@ namespace NFQAkademija\GalleryBundle\Controller;
 
 use NFQAkademija\GalleryBundle\Entity\Album;
 use NFQAkademija\GalleryBundle\Form\AlbumType;
-use NFQAkademija\WallBundle\Service\AlbumService;
+use NFQAkademija\GalleryBundle\Service\AlbumService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AlbumController extends Controller
 {
+
     public function indexAction()
     {
         /** @var AlbumService $albumService */
         $albumService = $this->get('nfqakademija_gallery.album_service');
-
         $albums = $albumService->getAlbums();
 
         return $this->render(
@@ -27,35 +27,24 @@ class AlbumController extends Controller
 
     public function deleteAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $album = $em->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
-
-        if (!$album) {
-            throw $this->createNotFoundException('No album found for id '.$id);
-        }
-
-        $em->remove($album);
-        $em->flush();
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+        $albumService->deleteAlbum($id);
 
         return new Response(json_encode(array('status' => 'OK')));
     }
 
     public function formAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $album = $em->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
-
-        if (!$album) {
-            $album = new Album();
-        }
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+        $album = $albumService->setAlbum($id);
 
         $form = $this->createForm(
             new AlbumType(),
             $album,
             array(
-                'action' => $this->generateUrl('nfqakademija_album_post'),
+                'action' => $this->generateUrl('nfqakademija_album_post', array('id' => $id)),
             )
         );
 
@@ -67,20 +56,27 @@ class AlbumController extends Controller
         );
     }
 
-    public function postAction(Request $request)
+    public function postAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $album = $em->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
+
+        if (!$album) {
+            $album = new Album();
+        }
+
         $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new AlbumType(), new Album());
+        $form = $this->createForm(new AlbumType(), $album);
 
         $form->handleRequest($request);
-        // REIKIA TAISYTI (REDAGUOJANT ALBUMĄ, SUKURIAMAS NAUJAS)
+
         if ($form->isValid()) {
             $album = $form->getData();
-            $album = $album->setUserId($user);
+            $album->setUserId($user);
             $em->persist($album);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('nfqakademija_galleryadmin_homepage'));
+        return $this->redirect($this->generateUrl('nfqakademija_gallery_homepage'));
     }
 }

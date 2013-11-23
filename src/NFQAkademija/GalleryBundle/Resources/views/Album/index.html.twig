@@ -9,17 +9,20 @@
 
     {% for album in albums %}
         <div class="item">
-            <nobr><h2>{{ album.name }}</h2></nobr>
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="icon delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                <a class="icon" href="{{ path('nfqakademija_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                <a class="icon" href="{{ path('nfqakademija_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+            {% endif %}
+            <nobr><h2><a href="{{ path('nfqakademija_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2></nobr>
             <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
             <p>
                 Created by: {{ album.userId.username }}<br/>
                 <nobr>{{ album.shortDescription }}</nobr><br/>
                 {{ album.place }}<br/>
             </p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <p><a class="btn delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}">Delete</a></p>
-            {% endif %}
+
         </div>
     {% endfor %}
 

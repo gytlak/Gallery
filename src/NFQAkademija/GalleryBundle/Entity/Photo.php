@@ -29,18 +29,19 @@ class Photo
     private $userId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="albumId", type="integer")
-     */
-    private $albumId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Album", inversedBy="photos")
+     * @ORM\JoinTable(name="albums_photos")
+     */
+    private $albums;
 
     /**
      * @var datetime $created
@@ -87,6 +88,21 @@ class Photo
     private $thumbUrl;
 
 
+    /**
+     * Creates a Doctrine Collection for albums.
+     */
+    public function __construct()
+    {
+        $this->albums = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * What is shown in a selection list
+     */
+    public function __toString()
+    {
+        return "{$this->getName()}";
+    }
 
     /**
      * Get id
@@ -96,29 +112,6 @@ class Photo
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set albumId
-     *
-     * @param integer $albumId
-     * @return Photo
-     */
-    public function setAlbumId($albumId)
-    {
-        $this->albumId = $albumId;
-    
-        return $this;
-    }
-
-    /**
-     * Get albumId
-     *
-     * @return integer 
-     */
-    public function getAlbumId()
-    {
-        return $this->albumId;
     }
 
     /**
@@ -142,6 +135,29 @@ class Photo
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add albums
+     *
+     * @param \NFQAkademija\GalleryBundle\Entity\Album $albums
+     * @return Photo
+     */
+    public function addAlbum(\NFQAkademija\GalleryBundle\Entity\Album $albums)
+    {
+        $this->albums[] = $albums;
+
+        return $this;
+    }
+
+    /**
+     * Get albums
+     *
+     * @return \NFQAkademija\GalleryBundle\Entity\Album
+     */
+    public function getAlbum()
+    {
+        return $this->albums;
     }
 
     /**

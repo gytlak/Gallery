@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Photos{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% for photo in photos %}
+        <div class="item">
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="icon delete" href="{{ path('nfqakademija_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                <a class="icon" href="{{ path('nfqakademija_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                <a class="icon" href="{{ path('nfqakademija_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+            {% endif %}
+            <nobr><h2><a href="#">{{ photo.name }}</a></h2></nobr>
+            <span class="date">{{ photo.created|date("Y-m-d H:i:s") }}</span>
+            <p>
+                Created by: {{ photo.userId.username }}<br/>
+            <nobr>{{ photo.shortDescription }}</nobr><br/>
+            </p>
+
+        </div>
+    {% endfor %}
+
+{% endblock %}

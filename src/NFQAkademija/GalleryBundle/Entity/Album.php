@@ -2,6 +2,7 @@
 
 namespace NFQAkademija\GalleryBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -57,6 +58,13 @@ class Album
     private $place;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", mappedBy="albums")
+     */
+    private $photos;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -79,6 +87,22 @@ class Album
      */
     private $titlePhoto;
 
+
+    /**
+     * Creates a Doctrine Collection for photos.
+     */
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
+
+    /**
+     * What is shown in a selection list
+     */
+    public function __toString()
+    {
+        return "{$this->getName()}";
+    }
 
     /**
      * Get id
@@ -273,4 +297,38 @@ class Album
     {
         return $this->userId;
     }
+
+    /**
+     * Add photos
+     *
+     * @param \NFQAkademija\GalleryBundle\Entity\Photo $photos
+     * @return Album
+     */
+    public function addPhoto(\NFQAkademija\GalleryBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \NFQAkademija\GalleryBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\NFQAkademija\GalleryBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhoto()
+    {
+        return $this->photos;
+    }
+
 }
