@@ -96,6 +96,20 @@ class Photo
     private $photoUrl;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Like", mappedBy="photoId")
+     */
+    private $likes;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Comment", mappedBy="photoId")
+     */
+    private $comments;
+
+    /**
      * Creates a Doctrine Collection for albums.
      */
     public function __construct()
@@ -312,6 +326,38 @@ class Photo
     public function getPhotoUrl()
     {
         return $this->photoUrl;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 
 }

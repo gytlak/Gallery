@@ -14,6 +14,12 @@ nfqakademija_gallery_photo:
     requirements:
                 id:  \d+
 
+nfqakademija_photo_like:
+    pattern: /photo/like/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Like:photoLike }
+    requirements:
+            id:  \d+
+
 nfqakademija_photo_form:
     pattern: /admin/photo/{id}
     defaults: { _controller: NFQAkademijaGalleryBundle:Photo:form, id: 0 }

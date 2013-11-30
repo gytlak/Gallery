@@ -23,6 +23,7 @@
                 <p>
                     Created: {{ photo.created|date("Y-m-d") }}<br/>
                     Author: {{ photo.userId.username }}<br/>
+                    Likes: {{ photo.likes|length }}<br/>
                     Description: <nobr>{{ photo.shortDescription }}</nobr>
                 </p>
             </div>
