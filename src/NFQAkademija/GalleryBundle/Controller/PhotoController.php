@@ -29,9 +29,26 @@ class PhotoController extends Controller
     {
         /** @var PhotoService $photoService */
         $photoService = $this->get('nfqakademija_gallery.photo_service');
-        $photoService->deletePhoto($id);
 
-        return new Response(json_encode(array('status' => 'OK')));
+        if ($photoService->deletePhoto($id)) {
+            return new Response(json_encode(array('status' => 'OK')));
+        } else {
+            return new Response(json_encode(array('status' => 'ERROR')));
+        }
+    }
+
+    public function showPhotoAction($id)
+    {
+        /** @var PhotoService $photoService */
+        $photoService = $this->get('nfqakademija_gallery.photo_service');
+        $photo = $photoService->getPhoto($id);
+
+        return $this->render(
+            'NFQAkademijaGalleryBundle:Photo:photo.html.twig',
+            array(
+                'photo' => $photo
+            )
+        );
     }
 
     public function formAction($id)

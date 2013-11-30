@@ -25,7 +25,7 @@ class Album
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
@@ -39,14 +39,14 @@ class Album
     /**
      * @var string
      *
-     * @ORM\Column(name="shortDescription", type="string", length=255)
+     * @ORM\Column(name="short_description", type="string", length=255)
      */
     private $shortDescription;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fullDescription", type="text")
+     * @ORM\Column(name="full_description", type="text")
      */
     private $fullDescription;
 

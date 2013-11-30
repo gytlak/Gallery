@@ -9,20 +9,27 @@
 
     {% for album in albums %}
         <div class="item">
-
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a class="icon delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                <a class="icon" href="{{ path('nfqakademija_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                <a class="icon" href="{{ path('nfqakademija_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+            {% if album.titlePhoto != NULL %}
+                <img alt="{{ album.name }}" src="{{ vich_uploader_asset(album.titlePhoto, 'photo') | apply_filter('list_thumb') }}" />
+            {% else %}
+                <img alt="" src="{{ asset('img/unset.png')  }}" />
             {% endif %}
-            <nobr><h2><a href="{{ path('nfqakademija_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2></nobr>
-            <span class="date">{{ album.created|date("Y-m-d H:i:s") }}</span>
-            <p>
-                Created by: {{ album.userId.username }}<br/>
-                <nobr>{{ album.shortDescription }}</nobr><br/>
-                {{ album.place }}<br/>
-            </p>
-
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <div class="admin">
+                    <a class="icon delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                    <a class="icon" href="{{ path('nfqakademija_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                    <a class="icon" href="{{ path('nfqakademija_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                </div>
+            {% endif %}
+            <div class="text">
+                <nobr><h2><a href="{{ path('nfqakademija_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2></nobr><br/>
+                <p>
+                    Created: {{ album.created|date("Y-m-d") }}<br/>
+                    Author: {{ album.userId.username }}<br/>
+                    Place: {{ album.place }}<br/>
+                    Description: <nobr>{{ album.shortDescription }}</nobr>
+                </p>
+            </div>
         </div>
     {% endfor %}
 

@@ -5,6 +5,7 @@ namespace NFQAkademija\GalleryBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use NFQAkademija\GalleryBundle\Entity\Photo;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PhotoService
@@ -31,6 +32,17 @@ class PhotoService
         return $this->photos;
     }
 
+    public function getPhoto($id)
+    {
+        $photo = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Photo')->find($id);
+
+        if (!$photo) {
+            throw new NotFoundHttpException('No photo found for id '.$id);
+        }
+
+        return $photo;
+    }
+
     public function deletePhoto($id)
     {
         $photo = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Photo')->find($id);
@@ -39,8 +51,14 @@ class PhotoService
             throw new NotFoundHttpException('No photo found for id '.$id);
         }
 
-        $this->entityManager->remove($photo);
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->remove($photo);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function setPhoto(&$id)

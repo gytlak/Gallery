@@ -8,6 +8,12 @@ nfqakademija_gallery_album:
     requirements:
                 id:  \d+
 
+nfqakademija_gallery_photo:
+    path: /photo/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Photo:showPhoto }
+    requirements:
+                id:  \d+
+
 nfqakademija_photo_form:
     pattern: /admin/photo/{id}
     defaults: { _controller: NFQAkademijaGalleryBundle:Photo:form, id: 0 }

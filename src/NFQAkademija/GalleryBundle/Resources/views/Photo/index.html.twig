@@ -8,20 +8,24 @@
 {% block content %}
 
     {% for photo in photos %}
+
         <div class="item">
-
+            <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a class="icon delete" href="{{ path('nfqakademija_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                <a class="icon" href="{{ path('nfqakademija_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                <a class="icon" href="{{ path('nfqakademija_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                <div class="admin">
+                    <a class="icon delete" href="{{ path('nfqakademija_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                    <a class="icon" href="{{ path('nfqakademija_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                    <a class="icon" href="{{ path('nfqakademija_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                </div>
             {% endif %}
-            <nobr><h2><a href="#">{{ photo.name }}</a></h2></nobr>
-            <span class="date">{{ photo.created|date("Y-m-d H:i:s") }}</span>
-            <p>
-                Created by: {{ photo.userId.username }}<br/>
-            <nobr>{{ photo.shortDescription }}</nobr><br/>
-            </p>
-
+            <div class="text">
+                <nobr><h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2></nobr><br/>
+                <p>
+                    Created: {{ photo.created|date("Y-m-d") }}<br/>
+                    Author: {{ photo.userId.username }}<br/>
+                    Description: <nobr>{{ photo.shortDescription }}</nobr>
+                </p>
+            </div>
         </div>
     {% endfor %}
 

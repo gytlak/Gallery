@@ -1,0 +1,11 @@
+<div class="item">
+    <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
+    <div class="text">
+        <nobr><h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2></nobr><br/>
+        <p>
+            Created: {{ photo.created|date("Y-m-d") }}<br/>
+            Author: {{ photo.userId.username }}<br/>
+            Description: <nobr>{{ photo.shortDescription }}</nobr>
+        </p>
+    </div>
+</div>

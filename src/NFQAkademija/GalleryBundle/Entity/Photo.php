@@ -28,7 +28,7 @@ class Photo
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
@@ -66,14 +66,14 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="shortDescription", type="string", length=255)
+     * @ORM\Column(name="short_description", type="string", length=255)
      */
     private $shortDescription;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="photoDate", type="datetime")
+     * @ORM\Column(name="photo_date", type="datetime")
      */
     private $photoDate;
 
@@ -82,12 +82,18 @@ class Photo
      *     maxSize="3M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="photo_url", fileNameProperty="name")
+     * @Vich\UploadableField(mapping="photo", fileNameProperty="photoUrl")
      *
      * @var File $photo
      */
     private $photo;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_url", type="string", length=255)
+     */
+    private $photoUrl;
 
     /**
      * Creates a Doctrine Collection for albums.
@@ -290,6 +296,22 @@ class Photo
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * @param string $photoUrl
+     */
+    public function setPhotoUrl($photoUrl)
+    {
+        $this->photoUrl = $photoUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl;
     }
 
 }
