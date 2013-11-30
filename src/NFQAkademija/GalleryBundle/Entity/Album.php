@@ -81,9 +81,8 @@ class Album
     private $updated;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="titlePhoto", type="integer")
+     * @ORM\ManyToOne(targetEntity="Photo")
+     * @ORM\JoinColumn(name="title_photo", referencedColumnName="id")
      */
     private $titlePhoto;
 
