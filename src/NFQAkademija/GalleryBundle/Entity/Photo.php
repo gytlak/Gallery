@@ -4,12 +4,16 @@ namespace NFQAkademija\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Photo
  *
  * @ORM\Table(name="photos")
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Photo
 {
@@ -74,18 +78,15 @@ class Photo
     private $photoDate;
 
     /**
-     * @var string
+     * @Assert\File(
+     *     maxSize="3M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="photo_url", fileNameProperty="name")
      *
-     * @ORM\Column(name="photoUrl", type="string", length=255)
+     * @var File $photo
      */
-    private $photoUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="thumbUrl", type="string", length=255)
-     */
-    private $thumbUrl;
+    private $photo;
 
 
     /**
@@ -253,52 +254,6 @@ class Photo
     }
 
     /**
-     * Set photoUrl
-     *
-     * @param string $photoUrl
-     * @return Photo
-     */
-    public function setPhotoUrl($photoUrl)
-    {
-        $this->photoUrl = $photoUrl;
-    
-        return $this;
-    }
-
-    /**
-     * Get photoUrl
-     *
-     * @return string 
-     */
-    public function getPhotoUrl()
-    {
-        return $this->photoUrl;
-    }
-
-    /**
-     * Set thumbUrl
-     *
-     * @param string $thumbUrl
-     * @return Photo
-     */
-    public function setThumbUrl($thumbUrl)
-    {
-        $this->thumbUrl = $thumbUrl;
-    
-        return $this;
-    }
-
-    /**
-     * Get thumbUrl
-     *
-     * @return string 
-     */
-    public function getThumbUrl()
-    {
-        return $this->thumbUrl;
-    }
-
-    /**
      * Set userId
      *
      * @param \NFQAkademija\GalleryBundle\Entity\User $userId
@@ -320,4 +275,21 @@ class Photo
     {
         return $this->userId;
     }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\File\File $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\File\File
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
 }

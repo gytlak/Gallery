@@ -16,8 +16,7 @@ class PhotoType extends AbstractType
             ->add('album', 'entity', array(
                 'class' => 'NFQAkademijaGalleryBundle:Album',
                 'multiple'  => true))
-            ->add('photoUrl')
-            ->add('thumbUrl')
+            ->add('photo')
             ->add('save', 'submit');
     }
 

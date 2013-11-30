@@ -83,6 +83,7 @@ vich_uploader:
         photo:
             uri_prefix: /images/photos
             upload_destination: %kernel.root_dir%/../web/images/photos
+            namer: vich_uploader.namer_origname
 
 avalanche_imagine:
     filters:
