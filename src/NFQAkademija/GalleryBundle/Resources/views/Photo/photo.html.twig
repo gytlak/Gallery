@@ -1,11 +1,14 @@
-<div class="item">
-    <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
-    <div class="text">
-        <nobr><h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2></nobr><br/>
+<div class="photo-popup">
+    <div class="photo-column">
+        <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
+    </div>
+    <div class="text-column">
+        <h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2>
         <p>
             Created: {{ photo.created|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
-            Description: <nobr>{{ photo.shortDescription }}</nobr>
+            Description: {{ photo.shortDescription }}
         </p>
     </div>
+    <div class="clearfix"></div>
 </div>

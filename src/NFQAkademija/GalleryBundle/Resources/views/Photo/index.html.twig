@@ -19,7 +19,7 @@
                 </div>
             {% endif %}
             <div class="text">
-                <nobr><h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2></nobr><br/>
+                <nobr><h2><a class="popup" href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2></nobr><br/>
                 <p>
                     Created: {{ photo.created|date("Y-m-d") }}<br/>
                     Author: {{ photo.userId.username }}<br/>
