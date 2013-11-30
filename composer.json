@@ -20,6 +20,10 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
 
+        "avalanche123/imagine-bundle": "v2.1",
+        "vich/uploader-bundle": "dev-master",
+        "knplabs/gaufrette": "dev-master",
+        "knplabs/knp-gaufrette-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "stof/doctrine-extensions-bundle": "dev-master"
     },

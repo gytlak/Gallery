@@ -20,6 +20,9 @@ class AppKernel extends Kernel
             #Third parties bundles
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
 
             #NFQ Akademija
             new NFQAkademija\GalleryBundle\NFQAkademijaGalleryBundle(),

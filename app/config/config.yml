@@ -76,3 +76,19 @@ stof_doctrine_extensions:
     orm:
         default:
             timestampable: true
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        photo:
+            uri_prefix: /images/photos
+            upload_destination: %kernel.root_dir%/../web/images/photos
+
+avalanche_imagine:
+    filters:
+        list_thumb:
+            type:    thumbnail
+            options: { size: [400, 300], mode: outbound, cache_type: public, cache_expires: 2 weeks }
+        thumb:
+            type:    thumbnail
+            options: { size: [400, 300], mode: outbound, cache_type: public, cache_expires: 2 weeks }
