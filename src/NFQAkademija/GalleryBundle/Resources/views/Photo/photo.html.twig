@@ -11,7 +11,7 @@
             Description: {{ photo.shortDescription }}<br/>
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
             (<span class="like-count">{{ photo.likes|length }}</span>) |
-            <a target="_blank" href="{{ vich_uploader_asset(photo, 'photo') }}">Download</a>
+            <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Download</a>
 
             <h4>Comments:</h4>
             {% for comment in photo.comments %}
