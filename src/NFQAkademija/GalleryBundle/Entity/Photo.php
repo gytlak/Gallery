@@ -79,7 +79,7 @@ class Photo
 
     /**
      * @Assert\File(
-     *     maxSize="3M",
+     *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="photo", fileNameProperty="photoUrl")

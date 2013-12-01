@@ -29,7 +29,8 @@ body {
     overflow: auto;
 }
 
-#nfqakademija_gallerybundle_comment_username, #nfqakademija_gallerybundle_comment_comment {
+#nfqakademija_gallerybundle_comment_username,
+#nfqakademija_gallerybundle_comment_comment {
     width: 94%;
 }
 
@@ -57,7 +58,8 @@ body {
     margin: 0 0 1% 0;
 }
 
-.text h2, .text p {
+.text h2,
+.text p {
     display: inline;
     color: white;
     background: rgb(0, 0, 0); /* fallback color */
@@ -168,7 +170,8 @@ body {
         width:96%;
     }
 
-    #nfqakademija_gallerybundle_comment_username, #nfqakademija_gallerybundle_comment_comment {
+    #nfqakademija_gallerybundle_comment_username,
+    #nfqakademija_gallerybundle_comment_comment {
         width: auto;
     }
 
