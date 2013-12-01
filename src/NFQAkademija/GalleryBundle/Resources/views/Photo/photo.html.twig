@@ -1,21 +1,37 @@
-<div class="photo-popup">
-    <div class="photo-column">
-        <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
-    </div>
-    <div class="text-column">
-        <h2>{{ photo.name }}</h2>
-        <p>
+{% block photo_popup %}
+
+    <div class="photo-popup">
+        <div class="photo-column">
+            <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
+        </div>
+        <div class="text-column">
+            <h2>{{ photo.name }}</h2>
             Created: {{ photo.created|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
             Description: {{ photo.shortDescription }}<br/>
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
             (<span class="like-count">{{ photo.likes|length }}</span>) |
             <a target="_blank" href="{{ vich_uploader_asset(photo, 'photo') }}">Download</a>
-        </p>
-    </div>
-    <div class="clearfix"></div>
-</div>
 
-{% block javascripts %}
-    <script src="{{ asset('js/nfq.likeButton.js') }}"></script>
+            <h4>Comments:</h4>
+            {% for comment in photo.comments %}
+                <div class="item">
+                    <a href="{{ path('nfqakademija_comment_delete', {id: comment.id}) }}" class="delete">X</a>
+                    <strong>{{ comment.username }}</strong>
+                    (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
+                    {{ comment.comment }}<br/>
+                </div>
+            {% endfor %}
+
+            {{ render(controller('NFQAkademijaGalleryBundle:Comment:form', {id: photo.id})) }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/nfq.likeButton.js') }}"></script>
+        <script src="{{ asset('js/nfq.commentButton.js') }}"></script>
+        <script src="{{ asset('js/nfq.deleteButton.js') }}"></script>
+    {% endblock %}
+
 {% endblock %}

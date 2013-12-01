@@ -14,6 +14,24 @@ nfqakademija_gallery_photo:
     requirements:
                 id:  \d+
 
+nfqakademija_comment_post:
+    pattern: /comment/post/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Comment:post, id: 0 }
+    requirements:
+            id:  \d+
+
+nfqakademija_comment_form:
+    pattern: /comment/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Comment:form, id: 0 }
+    requirements:
+            id:  \d+
+
+nfqakademija_comment_delete:
+    pattern: /admin/comment/delete/{id}
+    defaults: { _controller: NFQAkademijaGalleryBundle:Comment:delete }
+    requirements:
+            id:  \d+
+
 nfqakademija_photo_like:
     pattern: /photo/like/{id}
     defaults: { _controller: NFQAkademijaGalleryBundle:Like:photoLike }

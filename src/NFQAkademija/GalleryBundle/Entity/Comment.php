@@ -36,10 +36,11 @@ class Comment
     private $photoId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
      */
-    private $userId;
+    private $username;
 
     /**
      * @var \DateTime
@@ -138,19 +139,19 @@ class Comment
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $username
      */
-    public function setUserId($userId)
+    public function setUsername($username)
     {
-        $this->userId = $userId;
+        $this->username = $username;
     }
 
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getUsername()
     {
-        return $this->userId;
+        return $this->username;
     }
 
 }

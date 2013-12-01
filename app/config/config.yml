@@ -79,10 +79,13 @@ stof_doctrine_extensions:
 
 vich_uploader:
     db_driver: orm
+    twig: true
+    gaufrette: false
+    storage: vich_uploader.storage.file_system
     mappings:
         photo:
-            uri_prefix: /images/photos
-            upload_destination: %kernel.root_dir%/../web/images/photos
+            uri_prefix: photos
+            upload_destination: %kernel.root_dir%/../web/photos
             namer: vich_uploader.namer_origname
 
 avalanche_imagine:

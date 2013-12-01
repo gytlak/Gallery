@@ -24,6 +24,10 @@ body {
     float: left;
 }
 
+.comment-date {
+    font-size: small;
+}
+
 .item {
     float: left;
     position: relative;
@@ -39,11 +43,21 @@ body {
             border-radius: 5px;
 }
 
+.text-column .item {
+    width:100%;
+    margin: 0 0 1% 0;
+}
+
 .text h2, .text p {
     display: inline;
     color: white;
     background: rgb(0, 0, 0); /* fallback color */
     background: rgba(0, 0, 0, 0.7);
+}
+
+.text h2 {
+    font-size:1.75em;
+    line-height: 0;
 }
 
 .btn {
@@ -139,6 +153,10 @@ body {
     .text-column {
         width: 100%;
         float:none;
+    }
+
+    .text-column .item {
+        width:96%;
     }
 
     /* Enable use of floated navbar text */
