@@ -3,14 +3,14 @@
         <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
     </div>
     <div class="text-column">
-        <h2><a href="{{ path('nfqakademija_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2>
+        <h2>{{ photo.name }}</h2>
         <p>
             Created: {{ photo.created|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
             Description: {{ photo.shortDescription }}<br/>
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
             (<span class="like-count">{{ photo.likes|length }}</span>) |
-            <a href="{{ vich_uploader_asset(photo, 'photo') }}">Download</a>
+            <a target="_blank" href="{{ vich_uploader_asset(photo, 'photo') }}">Download</a>
         </p>
     </div>
     <div class="clearfix"></div>
