@@ -42,7 +42,7 @@ class AlbumService
         $this->entityManager->flush();
     }
 
-    public function setAlbum(&$id)
+    public function getAlbum(&$id)
     {
         $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
 

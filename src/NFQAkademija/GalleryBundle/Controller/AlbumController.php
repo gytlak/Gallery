@@ -38,10 +38,10 @@ class AlbumController extends Controller
     {
         /** @var AlbumService $albumService */
         $albumService = $this->get('nfqakademija_gallery.album_service');
-        $album = $albumService->setAlbum($id);
+        $album = $albumService->getAlbum($id);
 
         $form = $this->createForm(
-            new AlbumType(),
+            new AlbumType($album),
             $album,
             array(
                 'action' => $this->generateUrl('nfqakademija_album_post', array('id' => $id)),
@@ -67,7 +67,7 @@ class AlbumController extends Controller
         }
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new AlbumType(), $album);
+        $form = $this->createForm(new AlbumType($album), $album);
 
         $form->handleRequest($request);
 

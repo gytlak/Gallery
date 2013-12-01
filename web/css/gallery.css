@@ -8,6 +8,7 @@ body {
     margin: 20px auto;
     background: #FFF;
     padding: 5px;
+    position: relative;
 }
 .photo-column {
     width: 66%;
@@ -20,8 +21,16 @@ body {
 
 .text-column {
     width: 33%;
-    padding-left:1%;
-    float: left;
+    height: 100%;
+    position: absolute;
+    top:0px;
+    right:0px;
+    margin-left: 1%;
+    overflow: auto;
+}
+
+#nfqakademija_gallerybundle_comment_username, #nfqakademija_gallerybundle_comment_comment {
+    width: 94%;
 }
 
 .comment-date {
@@ -31,7 +40,7 @@ body {
 .item {
     float: left;
     position: relative;
-    max-height: 200px;
+    max-height: 300px;
     overflow: hidden;
     text-overflow: clip;
     width: 22%;
@@ -44,7 +53,7 @@ body {
 }
 
 .text-column .item {
-    width:100%;
+    width:97%;
     margin: 0 0 1% 0;
 }
 
@@ -57,7 +66,7 @@ body {
 
 .text h2 {
     font-size:1.75em;
-    line-height: 0;
+    line-height: 1.25em;
 }
 
 .btn {
@@ -152,11 +161,15 @@ body {
 
     .text-column {
         width: 100%;
-        float:none;
+        position: relative;
     }
 
     .text-column .item {
         width:96%;
+    }
+
+    #nfqakademija_gallerybundle_comment_username, #nfqakademija_gallerybundle_comment_comment {
+        width: auto;
     }
 
     /* Enable use of floated navbar text */

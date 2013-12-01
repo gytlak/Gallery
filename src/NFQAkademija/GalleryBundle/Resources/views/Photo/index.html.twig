@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Photos{% endblock %}
+{% block title %}Photos in {{ album.name }}{% endblock %}
 {% block head %}
     {{ parent() }}
 {% endblock %}
@@ -24,6 +24,7 @@
                     Created: {{ photo.created|date("Y-m-d") }}<br/>
                     Author: {{ photo.userId.username }}<br/>
                     Likes: {{ photo.likes|length }}<br/>
+                    Comments: {{ photo.comments|length }}<br/>
                     Description: <nobr>{{ photo.shortDescription }}</nobr>
                 </p>
             </div>

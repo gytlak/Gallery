@@ -26,7 +26,7 @@ class PhotoService
         if(!$this->photos) {
             $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
 
-            $this->photos = $album->getPhoto();
+            $this->photos = $album->getPhotos();
         }
 
         return $this->photos;

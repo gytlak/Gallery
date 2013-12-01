@@ -4,6 +4,7 @@ namespace NFQAkademija\GalleryBundle\Controller;
 use NFQAkademija\GalleryBundle\Entity\Photo;
 use NFQAkademija\GalleryBundle\Form\PhotoType;
 use NFQAkademija\GalleryBundle\Service\PhotoService;
+use NFQAkademija\GalleryBundle\Service\AlbumService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +18,15 @@ class PhotoController extends Controller
         $photoService = $this->get('nfqakademija_gallery.photo_service');
         $photos = $photoService->getPhotos($id);
 
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+        $album = $albumService->getAlbum($id);
+
         return $this->render(
             'NFQAkademijaGalleryBundle:Photo:index.html.twig',
             array(
-                'photos' => $photos
+                'photos' => $photos,
+                'album' => $album
             )
         );
     }

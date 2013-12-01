@@ -325,7 +325,7 @@ class Album
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPhoto()
+    public function getPhotos()
     {
         return $this->photos;
     }

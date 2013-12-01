@@ -16,13 +16,16 @@
             <h4>Comments:</h4>
             {% for comment in photo.comments %}
                 <div class="item">
-                    <a href="{{ path('nfqakademija_comment_delete', {id: comment.id}) }}" class="delete">X</a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('nfqakademija_comment_delete', {id: comment.id}) }}" class="delete">X</a>
+                    {% endif %}
                     <strong>{{ comment.username }}</strong>
                     (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
                     {{ comment.comment }}<br/>
                 </div>
             {% endfor %}
 
+            <h4>Add comment:</h4>
             {{ render(controller('NFQAkademijaGalleryBundle:Comment:form', {id: photo.id})) }}
         </div>
         <div class="clearfix"></div>
