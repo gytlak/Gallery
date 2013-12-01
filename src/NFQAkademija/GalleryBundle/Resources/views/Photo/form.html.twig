@@ -7,6 +7,11 @@
 
 {% block content %}
 
-        {{ form(photo_form) }}
+    <div class="route">
+        <a href="{{ path('nfqakademija_gallery_homepage') }}">Home</a> &raquo; <a href="#">Photo form</a><br/>
+        Hint: Multiple albums can be selected.
+    </div>
+
+    {{ form(photo_form) }}
 
 {% endblock %}

@@ -7,6 +7,11 @@
 
 {% block content %}
 
-        {{ form(album_form) }}
+    <div class="route">
+        <a href="{{ path('nfqakademija_gallery_homepage') }}">Home</a> &raquo; <a href="#">Album form</a><br/>
+        Hint: You will be able to set title photo after you add photos to this album.
+    </div>
+
+    {{ form(album_form) }}
 
 {% endblock %}

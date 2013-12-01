@@ -6,7 +6,8 @@
         </div>
         <div class="text-column">
             <h2>{{ photo.name }}</h2>
-            Created: {{ photo.created|date("Y-m-d") }}<br/>
+            Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
+            Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
             Description: {{ photo.shortDescription }}<br/>
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>

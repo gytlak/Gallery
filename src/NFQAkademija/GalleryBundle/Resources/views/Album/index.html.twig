@@ -7,30 +7,42 @@
 
 {% block content %}
 
-    {% for album in albums %}
-        <div class="item">
-            {% if album.titlePhoto != NULL %}
-                <img alt="{{ album.name }}" src="{{ vich_uploader_asset(album.titlePhoto, 'photo') | apply_filter('list_thumb') }}" />
-            {% else %}
-                <img alt="" src="{{ asset('img/unset.png')  }}" />
-            {% endif %}
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <div class="admin">
-                    <a class="icon delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                    <a class="icon" href="{{ path('nfqakademija_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                    <a class="icon" href="{{ path('nfqakademija_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+    <div class="route">
+        <a href="#">Home</a> &raquo; <a href="#">Albums</a>
+    </div>
+    {% if albums is not empty %}
+        {% for album in albums %}
+            <div class="item">
+                {% if album.titlePhoto != NULL %}
+                    <img alt="{{ album.name }}" src="{{ vich_uploader_asset(album.titlePhoto, 'photo') | apply_filter('list_thumb') }}" />
+                {% else %}
+                    <img alt="" src="{{ asset('img/unset.png')  }}" />
+                {% endif %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="admin">
+                        <a class="icon delete" href="{{ path('nfqakademija_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                        <a class="icon" href="{{ path('nfqakademija_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                        <a class="icon" href="{{ path('nfqakademija_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                    </div>
+                {% endif %}
+                <div class="text">
+                    <h2><a href="{{ path('nfqakademija_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2><br/>
+                    <p>
+                        Created: {{ album.created|date("Y-m-d") }}<br/>
+                        Author: {{ album.userId.username }}<br/>
+                        Photos: {{ album.photos|length }}<br/>
+                        Description: {{ album.shortDescription }}
+                    </p>
                 </div>
-            {% endif %}
-            <div class="text">
-                <nobr><h2><a href="{{ path('nfqakademija_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2></nobr><br/>
-                <p>
-                    Created: {{ album.created|date("Y-m-d") }}<br/>
-                    Author: {{ album.userId.username }}<br/>
-                    Place: {{ album.place }}<br/>
-                    Description: <nobr>{{ album.shortDescription }}</nobr>
-                </p>
             </div>
+        {% endfor %}
+    {% else %}
+        <div class="route">
+            No albums in the gallery yet.
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <br/>Hint: To create an album press "New album" in the menu above.
+            {% endif %}
         </div>
-    {% endfor %}
+    {% endif %}
 
 {% endblock %}
