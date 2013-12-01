@@ -25,8 +25,8 @@ class Like {
     /**
      * @var \NFQAkademija\GalleryBundle\Entity\Photo
      *
-     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="likes")
-     * @ORM\JoinColumn(name="photo_id")
+     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="likes", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="photo_id", onDelete="CASCADE")
      */
     private $photoId;
 

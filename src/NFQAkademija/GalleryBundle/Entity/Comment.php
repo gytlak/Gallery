@@ -30,8 +30,8 @@ class Comment
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="comments")
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="comments", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $photoId;
 
