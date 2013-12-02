@@ -110,6 +110,13 @@ class Photo
     private $comments;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Tag", mappedBy="photoId", cascade={"persist"})
+     */
+    private $tags;
+
+    /**
      * Creates a Doctrine Collection for albums.
      */
     public function __construct()
@@ -358,6 +365,38 @@ class Photo
     public function getLikes()
     {
         return $this->likes;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $tags
+     */
+    public function setTags($tags){
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag)
+    {
+        $tag->setPhotoId($this);
+        $this->tags[] = $tag;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 
 }

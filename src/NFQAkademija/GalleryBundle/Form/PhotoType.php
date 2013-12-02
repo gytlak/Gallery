@@ -14,12 +14,20 @@ class PhotoType extends AbstractType
             ->add('shortDescription')
             ->add('photoDate', 'date', array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy'))
+                'format' => 'dd/MM/yyyy',
+            ))
+            ->add('tags', 'collection', array(
+                'type'         => new TagType(),
+                'allow_add'    => true,
+                'by_reference' => false,
+            ))
             ->add('album', 'entity', array(
                 'class' => 'NFQAkademijaGalleryBundle:Album',
-                'multiple'  => true))
+                'multiple'  => true,
+            ))
             ->add('photo', 'file', array(
-                'required' => 'true'))
+                'required' => 'true',
+            ))
             ->add('save', 'submit');
     }
 

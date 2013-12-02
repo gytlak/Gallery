@@ -95,4 +95,4 @@ avalanche_imagine:
             options: { size: [400, 300], mode: outbound, cache_type: public, cache_expires: 2 weeks }
         thumb:
             type:    thumbnail
-            options: { size: [800, 600], mode: inset, cache_type: public, cache_expires: 2 weeks }
+            options: { size: [800, 600], mode: outbound, cache_type: public, cache_expires: 2 weeks }

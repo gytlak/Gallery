@@ -4,7 +4,6 @@
     {% block head %}
         <meta charset="UTF-8" />
         <title>Gallery - {% block title %}{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block stylesheets %}
             <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
             <link href="{{ asset('css/magnific.css') }}" rel="stylesheet">
@@ -65,6 +64,7 @@
             <script src="{{ asset('js/nfq.photoPopup.js') }}"></script>
             <script src="{{ asset('js/nfq.deleteButton.js') }}"></script>
             <script src="{{ asset('js/nfq.datePicker.js') }}"></script>
+            <script src="{{ asset('js/nfq.addTag.js') }}"></script>
         {% endblock %}
     </body>
 </html>
