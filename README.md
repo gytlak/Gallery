@@ -1,43 +1,30 @@
 NFQ Akademija - Gallery
 ========================
 
-Installiacija
+Funkcionalumas
 ----------------------------------
 
-Išsiklonuojam repositoriją į norimą katalogą.
-
-Projekte naudojama Symfony2, tam bus reikalingas composeris. Lokaliame kompiuteryje nebūtina turėti, bet galima.
-
-Pasileisti infrastruktūra reikės įsidiegti [virtualbox](1) ir [vagrant](2). Įdiegus vagrant papildomai reikės įdiegti jo papildymą. Tai padaryti galite konsolėje iškvietę komandą:
-
-    $ vagrant plugin install vagrant-hostsupdater
-    
-Tai sudiegę galime paleisti visą infrastruktūrą. Nueikite į projekto root direktoriją ir paleiskite komandą:
-
-    $ vagrant up
-    
-Papildomai sudiegti reikalingus paketus ar vėliau patikrinti pasikeitimus infrastruktūrai paleiskite komandą:
-
-    $ vagrant provision
-    
-Paleiskite paketų atnaujinimą  
-
-    $ composer install
-    
-Prisijungti prie virtualios mašinos per ssh galima naudojant komandą:
-
-    $ vagrant ssh
-    
-Kad pamatyti galeriją naršyklėje jums reikės pradinių duomenų, juos gauti reikės prisijungti į ssh ir paleisti keletą komandų. Prisijungus įveskite šias komandas:
-
-    $ vagrant ssh
-    $ cd /var/www
-    $ php app/console doctrine:database:create 
-    $ php app/console doctrine:schema:update --force
-    $ php app/console fos:user:create  //šičia pasileis vedlys kurio pagalba sukursite vartotoją ir vėliau galėsite prisijungti
-    
-Projektą galite atsidaryti naršyklėje suvedę: http://gallery.dev
-
-
-[1]:  https://www.virtualbox.org/wiki/Downloads
-[2]:  http://www.vagrantup.com
+* Implementuota autorizacijos sistema, su 2 rolėmis (Admin`as ir Svečias) (naudojant friendsofsymfony/user-bundle).
+* Failo įkėlimas į serverį (naudojant vich/uploader-bundle).
+* Albumai:
+    * Kūrimas.
+    * Redagavimas.
+    * Trynimas (AJAX).
+    * Titulinės nuotraukos priskyrimas.
+    * Išvedamas nuotraukų skaičius.
+* Nuotraukos:
+    * Kūrimas.
+        * Viena nuotrauka gali būti priskirta keliems albumams.
+    * Redagavimas.
+    * Trynimas (AJAX).
+    * Komentavimas (AJAX).
+        * Komentuoti gali tiek Admin`as tiek Svečias.
+        * Admin`as komentarus gali trinti (AJAX).
+    * Patikimas (AJAX).
+        * Nuotraukos patikti gali tiek Admin`ui, tiek Svečiui.
+        * Patikimai saugomi pagal kompiuterio iš kurio siųstas patikimas IP.
+    * Tagų prisegimas (AJAX).
+    * Thumbnail`s sukūrimas ir kešavimas (naudojant avalanche123/imagine-bundle).
+    * Nuotraukos atvaizduojamos magnific-popup pagalba, AJAX`u iškviečiant nuotraukos view`ą.
+    * Peržiūrint nuotrauką rodyklių pagalba galima pereiti į buvusią ar sekančią albumo nuotrauką (AJAX).
+    * Išvedami komentarų ir patikimų skaičiai.
