@@ -150,6 +150,18 @@ form {
     margin-right:2%;
 }
 
+#nfqakademija_gallerybundle_phototype {
+    width: 20%;
+}
+
+#nfqakademija_gallerybundle_phototype_tags .required {
+    float: left;
+}
+
+#nfqakademija_gallerybundle_phototype_tags input {
+    float: none;
+}
+
 @media (max-width: 980px) {
     .item {
         width: 30.3%;
@@ -191,5 +203,9 @@ form {
 @media (max-width: 430px) {
     .item {
         width: 97%;
+    }
+
+    #nfqakademija_gallerybundle_phototype {
+        width: 50%;
     }
 }
