@@ -12,20 +12,6 @@
         Hint: Multiple albums can be selected.
     </div>
 
-    {{ form_start(photo_form) }}
-
-        {{ form_row(photo_form.name) }}
-        {{ form_row(photo_form.shortDescription) }}
-        {{ form_row(photo_form.photoDate) }}
-        {{ form_row(photo_form.tags) }}
-        <div class="record_actions">
-            <a href="#" class="jslink">
-                Add a tag
-            </a>
-        </div>
-        {{ form_row(photo_form.album) }}
-        {{ form_row(photo_form.photo) }}
-
-    {{ form_end(photo_form) }}
+    {{ form(photo_form) }}
 
 {% endblock %}

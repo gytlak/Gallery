@@ -64,7 +64,7 @@ class PhotoController extends Controller
         $photo = $photoService->setPhoto($id);
 
         $form = $this->createForm(
-            new PhotoType(),
+            new PhotoType($photo),
             $photo,
             array(
                 'action' => $this->generateUrl('nfqakademija_photo_post', array('id' => $id)),
@@ -90,7 +90,7 @@ class PhotoController extends Controller
         }
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new PhotoType(), $photo);
+        $form = $this->createForm(new PhotoType($photo), $photo);
 
         $form->handleRequest($request);
 

@@ -112,7 +112,7 @@ class Photo
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Tag", mappedBy="photoId", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="NFQAkademija\GalleryBundle\Entity\Tag", mappedBy="photo", cascade={"persist"})
      */
     private $tags;
 
@@ -122,6 +122,9 @@ class Photo
     public function __construct()
     {
         $this->albums = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -370,8 +373,11 @@ class Photo
     /**
      * @param \Doctrine\Common\Collections\Collection $tags
      */
-    public function setTags($tags){
+    public function setTags(\Doctrine\Common\Collections\Collection $tags){
         $this->tags = $tags;
+        foreach ($tags as $tag){
+            $tag->setPhoto($this);
+        }
     }
 
     /**
@@ -385,16 +391,16 @@ class Photo
     /**
      * @param Tag $tag
      */
-    public function addTag(Tag $tag)
+    public function addTags(Tag $tag)
     {
-        $tag->setPhotoId($this);
         $this->tags[] = $tag;
+        $tag->setPhoto($this);
     }
 
     /**
      * @param Tag $tag
      */
-    public function removeTag(Tag $tag)
+    public function removeTags(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }

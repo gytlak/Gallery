@@ -25,32 +25,32 @@ class Tag
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $tag;
+    private $name;
 
     /**
      * @var \NFQAkademija\GalleryBundle\Entity\Photo
      *
-     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="tags", cascade={"persist","remove"})
-     * @ORM\JoinColumn(name="photo_id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="tags")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
      */
-    private $photoId;
+    private $photo;
 
     /**
-     * @param string $tag
+     * @param string $name
      */
-    public function setTag($tag)
+    public function setName($name)
     {
-        $this->tag = $tag;
+        $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function getTag()
+    public function getName()
     {
-        return $this->tag;
+        return $this->name;
     }
 
     /**
@@ -70,20 +70,19 @@ class Tag
     }
 
     /**
-     * @param \NFQAkademija\GalleryBundle\Entity\Photo $photoId
+     * @param \NFQAkademija\GalleryBundle\Entity\Photo $photo
      */
-    public function setPhotoId($photoId)
+    public function setPhoto(Photo $photo)
     {
-        $this->photoId = $photoId;
+        $this->photo = $photo;
     }
 
     /**
      * @return \NFQAkademija\GalleryBundle\Entity\Photo
      */
-    public function getPhotoId()
+    public function getPhoto()
     {
-        return $this->photoId;
+        return $this->photo;
     }
-
 
 }
