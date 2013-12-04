@@ -35,6 +35,7 @@ Kad pamatyti galeriją naršyklėje jums reikės pradinių duomenų, juos gauti 
     $ php app/console doctrine:database:create 
     $ php app/console doctrine:schema:update --force
     $ php app/console fos:user:create  //šičia pasileis vedlys kurio pagalba sukursite vartotoją ir vėliau galėsite prisijungti
+    $ php app/console fos:user:promote [sukurto_vartotojo_vardas] ROLE_ADMIN //priskiriame sukurtam vartotojui administratoriaus teises
     
 Projektą galite atsidaryti naršyklėje suvedę: http://gallery.dev
 

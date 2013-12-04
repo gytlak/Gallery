@@ -4,7 +4,7 @@ NFQ Akademija - Gallery
 Funkcionalumas
 ----------------------------------
 
-* Implementuota autorizacijos sistema, su 2 rolėmis (Admin`as ir Svečias) (naudojant friendsofsymfony/user-bundle).
+* Implementuota autorizacijos sistema, su 2 rolėmis (Adminas ir Useris) (naudojant friendsofsymfony/user-bundle).
 * Failo įkėlimas į serverį (naudojant vich/uploader-bundle).
 * Albumai:
     * Kūrimas.
@@ -18,10 +18,10 @@ Funkcionalumas
     * Redagavimas.
     * Trynimas (AJAX).
     * Komentavimas (AJAX).
-        * Komentuoti gali tiek Admin`as tiek Svečias.
-        * Admin`as komentarus gali trinti (AJAX).
+        * Komentuoti gali tiek Adminas, tiek Useris.
+        * Adminas komentarus gali trinti (AJAX).
     * Patikimas (AJAX).
-        * Nuotraukos patikti gali tiek Admin`ui, tiek Svečiui.
+        * Nuotraukos patikti gali tiek Adminui, tiek Useriui, tiek Svečiui.
         * Patikimai saugomi pagal kompiuterio iš kurio siųstas patikimas IP.
     * Tagų prisegimas (AJAX).
     * Thumbnail`s sukūrimas ir kešavimas (naudojant avalanche123/imagine-bundle).

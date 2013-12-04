@@ -68,12 +68,14 @@ class CommentController extends Controller
             return new Response('ERROR');
         }
 
+        $user = $this->get('security.context')->getToken()->getUser();
         $form = $this->createForm(new CommentType(), new Comment());
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $comment = $form->getData();
+            $comment->setUserId($user);
             $comment->setPhotoId($photo);
             $em->persist($comment);
             $em->flush();

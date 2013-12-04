@@ -40,9 +40,17 @@ class AlbumController extends Controller
     {
         /** @var AlbumService $albumService */
         $albumService = $this->get('nfqakademija_gallery.album_service');
-        $albumService->deleteAlbum($id);
+        $admin = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $admin = true;
+        }
+        $user = $this->get('security.context')->getToken()->getUser();
 
-        return new Response(json_encode(array('status' => 'OK')));
+        if ($albumService->deleteAlbum($id, $user, $admin)) {
+            return new Response(json_encode(array('status' => 'OK')));
+        } else {
+            return new Response(json_encode(array('status' => 'ERROR')));
+        }
     }
 
     /**
@@ -55,7 +63,12 @@ class AlbumController extends Controller
     {
         /** @var AlbumService $albumService */
         $albumService = $this->get('nfqakademija_gallery.album_service');
-        $album = $albumService->getAlbum($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        $admin = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $admin = true;
+        }
+        $album = $albumService->getAlbum($id, $user, $admin);
 
         $form = $this->createForm(
             new AlbumType($album),

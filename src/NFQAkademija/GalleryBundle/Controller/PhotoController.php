@@ -23,11 +23,8 @@ class PhotoController extends Controller
     {
         /** @var PhotoService $photoService */
         $photoService = $this->get('nfqakademija_gallery.photo_service');
-        $photos = $photoService->getPhotos($id);
-
-        /** @var AlbumService $albumService */
-        $albumService = $this->get('nfqakademija_gallery.album_service');
-        $album = $albumService->getAlbum($id);
+        $album = null;
+        $photos = $photoService->getPhotos($id, $album);
 
         return $this->render(
             'NFQAkademijaGalleryBundle:Photo:index.html.twig',
@@ -40,8 +37,7 @@ class PhotoController extends Controller
 
     /**
      * Deletes photo by photo id using photo service.
-     * If photo service returns true, responds OK,
-     * else responds ERROR.
+     * Creates response.
      *
      * @param $id
      * @return Response
@@ -50,8 +46,13 @@ class PhotoController extends Controller
     {
         /** @var PhotoService $photoService */
         $photoService = $this->get('nfqakademija_gallery.photo_service');
+        $user = $this->get('security.context')->getToken()->getUser();
+        $admin = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $admin = true;
+        }
 
-        if ($photoService->deletePhoto($id)) {
+        if ($photoService->deletePhoto($id, $user, $admin)) {
             return new Response(json_encode(array('status' => 'OK')));
         } else {
             return new Response(json_encode(array('status' => 'ERROR')));
@@ -89,7 +90,12 @@ class PhotoController extends Controller
     {
         /** @var PhotoService $photoService */
         $photoService = $this->get('nfqakademija_gallery.photo_service');
-        $photo = $photoService->setPhoto($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+        $admin = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $admin = true;
+        }
+        $photo = $photoService->setPhoto($id, $user, $admin);
 
         $form = $this->createForm(
             new PhotoType($photo),

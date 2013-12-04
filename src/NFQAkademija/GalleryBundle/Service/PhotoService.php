@@ -33,9 +33,10 @@ class PhotoService
      * Gets photos collection by album id.
      *
      * @param $id
+     * @param $album
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPhotos($id)
+    public function getPhotos($id, &$album)
     {
         if(!$this->photos) {
             $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
@@ -64,29 +65,30 @@ class PhotoService
     }
 
     /**
-     * Deletes photo by photo id. Throws exception if not found.
-     * Returns true if photo was deleted. False if not.
+     * Deletes photo by photo id.
+     * Checks if user has right to delete it.
      *
      * @param $id
+     * @param $user
+     * @param $admin
      * @return bool
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function deletePhoto($id)
+    public function deletePhoto($id, $user, $admin)
     {
         $photo = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Photo')->find($id);
 
         if (!$photo) {
-            throw new NotFoundHttpException('No photo found for id '.$id);
-        }
-
-        try {
-            $this->entityManager->remove($photo);
-            $this->entityManager->flush();
-        } catch (\Exception $e) {
             return false;
+        } else if ($photo->getUserId() == $user || $admin) {
+            try {
+                $this->entityManager->remove($photo);
+                $this->entityManager->flush();
+            } catch (\Exception $e) {
+                return false;
+            }
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -94,16 +96,20 @@ class PhotoService
      * If no photo is found, creates new photo object and returns it.
      *
      * @param $id
+     * @param $user
+     * @param $admin
      * @return \NFQAkademija\GalleryBundle\Entity\Photo
      */
-    public function setPhoto(&$id)
+    public function setPhoto(&$id, $user, $admin)
     {
         $photo = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Photo')->find($id);
 
-        if (!$photo) {
-            $photo = new Photo();
-            $id = 0;
+        if ($photo && ($photo->getUserId() == $user || $admin)) {
+            return $photo;
         }
+
+        $photo = new Photo();
+        $id = 0;
 
         return $photo;
     }

@@ -43,38 +43,48 @@ class AlbumService
 
     /**
      * Deletes album by album id.
-     * Throws exception if not found.
+     * Checks if user has right to delete it.
      *
      * @param $id
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @param $user
+     * @param $admin
+     * @return bool
      */
-    public function deleteAlbum($id)
+    public function deleteAlbum($id, $user, $admin)
     {
         $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
 
         if (!$album) {
-            throw new NotFoundHttpException('No album found for id '.$id);
+            return false;
+        } else if ($album->getUserId() == $user || $admin) {
+            $this->entityManager->remove($album);
+            $this->entityManager->flush();
+            return true;
         }
 
-        $this->entityManager->remove($album);
-        $this->entityManager->flush();
+        return false;
     }
 
     /**
      * Gets album by album id and returns it.
-     * If no album is found, creates new album object and returns it.
+     * If no album is found or user ir not author of the album
+     * or not admin, returns new album object.
      *
      * @param $id
+     * @param $user
+     * @param $admin
      * @return \NFQAkademija\GalleryBundle\Entity\Album
      */
-    public function getAlbum(&$id)
+    public function getAlbum(&$id, $user, $admin)
     {
         $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
 
-        if (!$album) {
-            $album = new Album();
-            $id = 0;
+        if ($album && ($album->getUserId() == $user || $admin)) {
+            return $album;
         }
+
+        $album = new Album();
+        $id = 0;
 
         return $album;
     }

@@ -132,7 +132,8 @@ form {
 }
 
 .form-signin input[type="text"],
-.form-signin input[type="password"] {
+.form-signin input[type="password"],
+.form-signin input[type="email"] {
     display: block;
     width: 100%;
     min-height: 30px;

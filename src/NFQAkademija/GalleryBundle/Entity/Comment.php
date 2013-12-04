@@ -36,11 +36,10 @@ class Comment
     private $photoId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $username;
+    private $userId;
 
     /**
      * @var \DateTime
@@ -139,19 +138,19 @@ class Comment
     }
 
     /**
-     * @param mixed $username
+     * @param mixed $userId
      */
-    public function setUsername($username)
+    public function setUserId($userId)
     {
-        $this->username = $username;
+        $this->userId = $userId;
     }
 
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getUserId()
     {
-        return $this->username;
+        return $this->userId;
     }
 
 }

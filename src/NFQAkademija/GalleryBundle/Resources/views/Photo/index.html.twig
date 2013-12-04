@@ -18,7 +18,7 @@
         {% for photo in photos %}
             <div class="item">
                 <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if (is_granted("ROLE_ADMIN") or app.user == photo.userId) %}
                     <div class="admin">
                         <a class="icon delete" href="{{ path('nfqakademija_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
                         <a class="icon" href="{{ path('nfqakademija_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
