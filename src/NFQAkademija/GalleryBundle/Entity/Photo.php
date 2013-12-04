@@ -78,10 +78,7 @@ class Photo
     private $photoDate;
 
     /**
-     * @Assert\File(
-     *     maxSize="5M",
-     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
-     * )
+     * @Assert\Image
      * @Vich\UploadableField(mapping="photo", fileNameProperty="photoUrl")
      *
      * @var File $photo
