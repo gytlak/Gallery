@@ -8,14 +8,26 @@ use NFQAkademija\GalleryBundle\Entity\Photo;
 
 class PhotoType extends AbstractType
 {
-
+    /**
+     * @var \NFQAkademija\GalleryBundle\Entity\Photo
+     */
     protected $photo;
 
+    /**
+     * @param Photo $photo
+     */
     public function __construct (Photo $photo)
     {
         $this->photo = $photo;
     }
 
+    /**
+     * Builds photo form.
+     * If photo (file) is set, doesn`t show file uploader.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($this->photo->getPhoto()) {
@@ -62,6 +74,9 @@ class PhotoType extends AbstractType
         }
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
@@ -71,6 +86,9 @@ class PhotoType extends AbstractType
         );
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'nfqakademija_gallerybundle_phototype';

@@ -11,7 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PhotoController extends Controller
 {
-
+    /**
+     * Gets photos by album id using photo service
+     * and album by album id using album service.
+     * Renders them.
+     *
+     * @param $id
+     * @return Response
+     */
     public function indexAction($id)
     {
         /** @var PhotoService $photoService */
@@ -31,6 +38,14 @@ class PhotoController extends Controller
         );
     }
 
+    /**
+     * Deletes photo by photo id using photo service.
+     * If photo service returns true, responds OK,
+     * else responds ERROR.
+     *
+     * @param $id
+     * @return Response
+     */
     public function deleteAction($id)
     {
         /** @var PhotoService $photoService */
@@ -43,6 +58,13 @@ class PhotoController extends Controller
         }
     }
 
+    /**
+     * Gets photo by photo id using photo service.
+     * Renders it.
+     *
+     * @param $id
+     * @return Response
+     */
     public function showPhotoAction($id)
     {
         /** @var PhotoService $photoService */
@@ -57,6 +79,12 @@ class PhotoController extends Controller
         );
     }
 
+    /**
+     * Creates photo form and renders it.
+     *
+     * @param $id
+     * @return Response
+     */
     public function formAction($id)
     {
         /** @var PhotoService $photoService */
@@ -79,6 +107,13 @@ class PhotoController extends Controller
         );
     }
 
+    /**
+     * Posts photo and redirects to homepage.
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function postAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();

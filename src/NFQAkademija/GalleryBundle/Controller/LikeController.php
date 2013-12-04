@@ -9,7 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
-
+    /**
+     * Checks if user already liked a photo,
+     * if true responds that a like exists,
+     * if false posts like.
+     *
+     * @param $id
+     * @return Response
+     */
     public function photoLikeAction($id)
     {
         $em = $this->getDoctrine()->getManager();

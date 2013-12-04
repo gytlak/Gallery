@@ -10,7 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AlbumController extends Controller
 {
-
+    /**
+     * Gets albums from album service and renders them.
+     *
+     * @return Response
+     */
     public function indexAction()
     {
         /** @var AlbumService $albumService */
@@ -25,6 +29,13 @@ class AlbumController extends Controller
         );
     }
 
+    /**
+     * Deletes album by album id using album service.
+     * Creates a response.
+     *
+     * @param $id
+     * @return Response
+     */
     public function deleteAction($id)
     {
         /** @var AlbumService $albumService */
@@ -34,6 +45,12 @@ class AlbumController extends Controller
         return new Response(json_encode(array('status' => 'OK')));
     }
 
+    /**
+     * Creates album form and renders it.
+     *
+     * @param $id
+     * @return Response
+     */
     public function formAction($id)
     {
         /** @var AlbumService $albumService */
@@ -56,6 +73,13 @@ class AlbumController extends Controller
         );
     }
 
+    /**
+     * Posts album and redirects to homepage.
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function postAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();

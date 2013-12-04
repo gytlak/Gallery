@@ -1,3 +1,4 @@
+{# AJAX popup, probably don`t need to add html headers and stuff? #}
 {% block photo_popup %}
 
     <div class="photo-popup">
@@ -13,12 +14,12 @@
             {% if photo.tags is not empty %}
                 Tags:
                 {% for tag in photo.tags %}
-                    {{ tag.tag }}
+                    {{ tag.name }}
                 {% endfor %}
             {% endif %}<br/>
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
             (<span class="like-count">{{ photo.likes|length }}</span>) |
-            <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Download original image</a>
+            <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Original image</a>
 
             <h4>Comments:</h4>
             {% if photo.comments is not empty %}
