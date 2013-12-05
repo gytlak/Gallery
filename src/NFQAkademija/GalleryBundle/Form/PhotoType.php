@@ -51,7 +51,7 @@ class PhotoType extends AbstractType
                     'prototype' => true,
                     'by_reference' => false,
                 ))
-                ->add('album', 'entity', array(
+                ->add('albums', 'entity', array(
                     'class' => 'NFQAkademijaGalleryBundle:Album',
                     'choices' => $this->albums,
                     'required' => true,
@@ -72,7 +72,7 @@ class PhotoType extends AbstractType
                     'prototype' => true,
                     'by_reference' => false,
                 ))
-                ->add('album', 'entity', array(
+                ->add('albums', 'entity', array(
                     'class' => 'NFQAkademijaGalleryBundle:Album',
                     'choices' => $this->albums,
                     'required' => true,
