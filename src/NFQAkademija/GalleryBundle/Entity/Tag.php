@@ -32,7 +32,7 @@ class Tag
     /**
      * @var \NFQAkademija\GalleryBundle\Entity\Photo
      *
-     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="tags", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity="NFQAkademija\GalleryBundle\Entity\Photo", inversedBy="tags", cascade={"persist"})
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $photo;
