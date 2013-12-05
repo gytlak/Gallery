@@ -14,11 +14,18 @@ class PhotoType extends AbstractType
     protected $photo;
 
     /**
-     * @param Photo $photo
+     * @var array
      */
-    public function __construct (Photo $photo)
+    protected $albums;
+
+    /**
+     * @param Photo $photo
+     * @param array $albums
+     */
+    public function __construct (Photo $photo, array $albums)
     {
         $this->photo = $photo;
+        $this->albums = $albums;
     }
 
     /**
@@ -46,10 +53,12 @@ class PhotoType extends AbstractType
                 ))
                 ->add('album', 'entity', array(
                     'class' => 'NFQAkademijaGalleryBundle:Album',
+                    'choices' => $this->albums,
+                    'required' => true,
                     'multiple'  => true,
                 ))
                 ->add('save', 'submit');
-        } else {
+        } else if (!$this->photo->getPhoto()) {
             $builder
                 ->add('name')
                 ->add('shortDescription')
@@ -65,6 +74,8 @@ class PhotoType extends AbstractType
                 ))
                 ->add('album', 'entity', array(
                     'class' => 'NFQAkademijaGalleryBundle:Album',
+                    'choices' => $this->albums,
+                    'required' => true,
                     'multiple'  => true,
                 ))
                 ->add('photo', 'file', array(

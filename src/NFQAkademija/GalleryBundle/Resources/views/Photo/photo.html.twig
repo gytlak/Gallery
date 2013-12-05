@@ -10,13 +10,22 @@
             Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
             Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
-            Description: {{ photo.shortDescription }}<br/>
             {% if photo.tags is not empty %}
                 Tags:
                 {% for tag in photo.tags %}
-                    {{ tag.name }}
+                    <a href="{{ path('nfqakademija_gallery_search', {name: tag.name}) }}">{{ tag.name }}</a>
                 {% endfor %}
-            {% endif %}<br/>
+                <br/>
+            {% endif %}
+            {% if photo.albums is not empty %}
+                Album(s):
+                {% for album in photo.albums %}
+                    {{ album.name }}
+                {% endfor %}
+                <br/>
+            {% endif %}
+            Description: {{ photo.shortDescription }}<br/>
+
             <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
             (<span class="like-count">{{ photo.likes|length }}</span>) |
             <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Original image</a>

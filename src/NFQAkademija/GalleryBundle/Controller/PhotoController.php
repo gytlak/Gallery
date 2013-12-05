@@ -82,6 +82,8 @@ class PhotoController extends Controller
 
     /**
      * Creates photo form and renders it.
+     * Also checks if user is admin and gives to form
+     * either a an array of user albums or all albums
      *
      * @param $id
      * @return Response
@@ -90,15 +92,24 @@ class PhotoController extends Controller
     {
         /** @var PhotoService $photoService */
         $photoService = $this->get('nfqakademija_gallery.photo_service');
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+
         $user = $this->get('security.context')->getToken()->getUser();
-        $admin = false;
+
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $admin = true;
+            $albums = $albumService->getAlbums();
+        } else {
+            $admin = false;
+            $albums = $albumService->getAlbumsByUser($user);
         }
+
         $photo = $photoService->setPhoto($id, $user, $admin);
 
+
         $form = $this->createForm(
-            new PhotoType($photo),
+            new PhotoType($photo, $albums),
             $photo,
             array(
                 'action' => $this->generateUrl('nfqakademija_photo_post', array('id' => $id)),
@@ -130,8 +141,18 @@ class PhotoController extends Controller
             $photo = new Photo();
         }
 
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('nfqakademija_gallery.album_service');
+
         $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new PhotoType($photo), $photo);
+
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $albums = $albumService->getAlbums();
+        } else {
+            $albums = $albumService->getAlbumsByUser($user);
+        }
+
+        $form = $this->createForm(new PhotoType($photo, $albums), $photo);
 
         $form->handleRequest($request);
 

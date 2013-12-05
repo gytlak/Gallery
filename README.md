@@ -4,7 +4,10 @@ NFQ Akademija - Gallery
 Funkcionalumas
 ----------------------------------
 
-* Implementuota autorizacijos sistema, su 2 rolėmis (Adminas ir Useris) (naudojant friendsofsymfony/user-bundle).
+* Autorizacijos sistema (naudojant friendsofsymfony/user-bundle):
+    * Prisijungimas.
+    * 2 rolės: Admin ir User.
+    * Registracija (registruojantis užregistruojama kaip User).
 * Failo įkėlimas į serverį (naudojant vich/uploader-bundle).
 * Albumai:
     * Kūrimas.
@@ -24,6 +27,7 @@ Funkcionalumas
         * Nuotraukos patikti gali tiek Adminui, tiek Useriui, tiek Svečiui.
         * Patikimai saugomi pagal kompiuterio iš kurio siųstas patikimas IP.
     * Tagų prisegimas (AJAX).
+        * Nuotraukos puslapyje paspaudus ant tago randamos kitos nuotraukos turinčios tokį tagą.
     * Thumbnail`s sukūrimas ir kešavimas (naudojant avalanche123/imagine-bundle).
     * Nuotraukos atvaizduojamos magnific-popup pagalba, per AJAX iškviečiant nuotraukos view`ą.
     * Peržiūrint nuotrauką rodyklių pagalba galima pereiti į buvusią ar sekančią albumo nuotrauką (AJAX).
@@ -38,4 +42,11 @@ Reikalavimai
 * JSON
 * ctype
 * php.ini turi turėti date.timezone nustatymą
-* Composer
+* Composer (vendoriams parsisiųsti)
+
+Live demo
+----------------------------------
+
+[Projekto demo internete](1)
+
+[1]:  http://gallery.96.lt

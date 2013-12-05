@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Search{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="route">
+        <a href="{{ path('nfqakademija_gallery_homepage') }}">Home</a> &raquo; <a href="#">Search</a><br/>
+    </div>
+    {% if tags is not empty %}
+        {% for tag in tags %}
+            <div class="item">
+                <img alt="{{ tag.photo.name }}" src="{{ vich_uploader_asset(tag.photo, 'photo') | apply_filter('list_thumb') }}" />
+                {% if (is_granted("ROLE_ADMIN") or app.user == tag.photo.userId) %}
+                    <div class="admin">
+                        <a class="icon delete" href="{{ path('nfqakademija_photo_delete', {id: tag.photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                        <a class="icon" href="{{ path('nfqakademija_photo_form', {id: tag.photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                        <a class="icon" href="{{ path('nfqakademija_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                    </div>
+                {% endif %}
+                <div class="text">
+                    <h2><a class="popup" href="{{ path('nfqakademija_gallery_photo', {id: tag.photo.id}) }}">{{ tag.photo.name }}</a></h2><br/>
+                    <p>
+                        Uploaded: {{ tag.photo.created|date("Y-m-d") }}<br/>
+                        Author: {{ tag.photo.userId.username }}<br/>
+                        Likes: {{ tag.photo.likes|length }}<br/>
+                        Comments: {{ tag.photo.comments|length }}<br/>
+                        Description: {{ tag.photo.shortDescription }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="route">
+            There was no photos found by this tag.
+        </div>
+    {% endif %}
+
+{% endblock %}

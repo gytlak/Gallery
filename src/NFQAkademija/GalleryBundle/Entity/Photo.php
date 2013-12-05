@@ -183,7 +183,7 @@ class Photo
      *
      * @return \NFQAkademija\GalleryBundle\Entity\Album
      */
-    public function getAlbum()
+    public function getAlbums()
     {
         return $this->albums;
     }

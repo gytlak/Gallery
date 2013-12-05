@@ -29,6 +29,8 @@ class AlbumService
     }
 
     /**
+     * Gets all albums.
+     *
      * @return array|null
      */
     public function getAlbums()
@@ -36,6 +38,21 @@ class AlbumService
         if(!$this->albums) {
             $this->albums = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')
                 ->findBy(array(), array('id' => 'DESC'));
+        }
+
+        return $this->albums;
+    }
+
+    /**
+     * Gets albums by user.
+     *
+     * @return array|null
+     */
+    public function getAlbumsByUser($user)
+    {
+        if(!$this->albums) {
+            $this->albums = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')
+                ->findBy(array('userId' => $user), array('id' => 'DESC'));
         }
 
         return $this->albums;
