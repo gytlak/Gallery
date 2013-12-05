@@ -42,7 +42,6 @@ Reikalavimai
 * JSON
 * ctype
 * php.ini turi turėti date.timezone nustatymą
-* Composer (vendoriams parsisiųsti)
 
 Live demo
 ----------------------------------
