@@ -20,10 +20,6 @@ Papildomai sudiegti reikalingus paketus ar vėliau patikrinti pasikeitimus infra
 
     $ vagrant provision
     
-Paleiskite paketų atnaujinimą  
-
-    $ composer install
-    
 Prisijungti prie virtualios mašinos per ssh galima naudojant komandą:
 
     $ vagrant ssh
@@ -32,6 +28,7 @@ Kad pamatyti galeriją naršyklėje jums reikės pradinių duomenų, juos gauti 
 
     $ vagrant ssh
     $ cd /var/www
+    $ composer install //čia yra tikimybė kad ties symfony išmes timeout, tokiu atveju reikia atsisiųsti symfony su vendors iš gamintojo pusalpio ir įkelti vendors aplanką į projekto root direktoriją, bei dar kartą paleisti komandą $ composer install
     $ php app/console doctrine:database:create 
     $ php app/console doctrine:schema:update --force
     $ php app/console fos:user:create  //šičia pasileis vedlys kurio pagalba sukursite vartotoją ir vėliau galėsite prisijungti

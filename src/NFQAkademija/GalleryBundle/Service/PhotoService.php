@@ -31,6 +31,7 @@ class PhotoService
 
     /**
      * Gets photos collection by album id.
+     * Throws exception if album not found.
      *
      * @param $id
      * @param $album
@@ -40,6 +41,11 @@ class PhotoService
     {
         if(!$this->photos) {
             $album = $this->entityManager->getRepository('NFQAkademijaGalleryBundle:Album')->find($id);
+
+            if (!$album) {
+                throw new NotFoundHttpException('No album found for id '.$id);
+            }
+
             $this->photos = $album->getPhotos();
         }
 
