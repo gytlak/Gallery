@@ -1,67 +1,52 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% block head %}
-            <meta charset="UTF-8" />
-            <title>Gallery - Photo</title>
-        {% endblock %}
-    </head>
+{# No HTML headers and stuff because it`s a magnific popup. Otherwise closes on content click. #}
+{% block photo_popup %}
 
-    <body>
+    <div class="photo-popup">
+        <div class="photo-column">
+            <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
+        </div>
+        <div class="text-column">
+            <h2>{{ photo.name }}</h2>
+            Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
+            Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
+            Author: {{ photo.userId.username }}<br/>
+            Description: {{ photo.shortDescription }}<br/>
+            {% if photo.tags is not empty %}
+                Tags:
+                {% for tag in photo.tags %}
+                    {{ tag.name }}
+                {% endfor %}
+            {% endif %}<br/>
+            <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
+            (<span class="like-count">{{ photo.likes|length }}</span>) |
+            <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Original image</a>
+            <h4>Comments:</h4>
+            {% if photo.comments is not empty %}
+                {% for comment in photo.comments %}
+                    <div class="item">
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href="{{ path('nfqakademija_comment_delete', {id: comment.id}) }}" class="delete">X</a>
+                        {% endif %}
+                        <strong>{{ comment.userId.username }}</strong>
+                        (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
+                        {{ comment.comment }}<br/>
+                    </div>
+                {% endfor %}
+            {% else %}
+                No comments yet.
+            {% endif %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <h4>Add comment:</h4>
+            {{ render(controller('NFQAkademijaGalleryBundle:Comment:form', {id: photo.id})) }}
+            {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
 
-        {% block photo_popup %}
+    {% block javascripts %}
+        <script src="{{ asset('js/nfq.likeButton.js') }}"></script>
+        <script src="{{ asset('js/nfq.commentButton.js') }}"></script>
+        <script src="{{ asset('js/nfq.deleteButton.js') }}"></script>
+    {% endblock %}
 
-            <div class="photo-popup">
-                <div class="photo-column">
-                    <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
-                </div>
-                <div class="text-column">
-                    <h2>{{ photo.name }}</h2>
-                    Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
-                    Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
-                    Author: {{ photo.userId.username }}<br/>
-                    Description: {{ photo.shortDescription }}<br/>
-                    {% if photo.tags is not empty %}
-                        Tags:
-                        {% for tag in photo.tags %}
-                            {{ tag.name }}
-                        {% endfor %}
-                    {% endif %}<br/>
-                    <a class="like" href="{{ path('nfqakademija_photo_like', {id: photo.id}) }}">Like</a>
-                    (<span class="like-count">{{ photo.likes|length }}</span>) |
-                    <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Original image</a>
-
-                    <h4>Comments:</h4>
-                    {% if photo.comments is not empty %}
-                        {% for comment in photo.comments %}
-                            <div class="item">
-                                {% if is_granted("ROLE_ADMIN") %}
-                                    <a href="{{ path('nfqakademija_comment_delete', {id: comment.id}) }}" class="delete">X</a>
-                                {% endif %}
-                                <strong>{{ comment.userId.username }}</strong>
-                                (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
-                                {{ comment.comment }}<br/>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        No comments yet.
-                    {% endif %}
-
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <h4>Add comment:</h4>
-                    {{ render(controller('NFQAkademijaGalleryBundle:Comment:form', {id: photo.id})) }}
-                    {% endif %}
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            {% block javascripts %}
-                <script src="{{ asset('js/nfq.likeButton.js') }}"></script>
-                <script src="{{ asset('js/nfq.commentButton.js') }}"></script>
-                <script src="{{ asset('js/nfq.deleteButton.js') }}"></script>
-            {% endblock %}
-
-        {% endblock %}
-
-    </body>
-</html>
+{% endblock %}

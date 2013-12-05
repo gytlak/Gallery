@@ -28,3 +28,14 @@ Funkcionalumas
     * Nuotraukos atvaizduojamos magnific-popup pagalba, per AJAX iškviečiant nuotraukos view`ą.
     * Peržiūrint nuotrauką rodyklių pagalba galima pereiti į buvusią ar sekančią albumo nuotrauką (AJAX).
     * Išvedami komentarų ir patikimų skaičiai.
+
+Reikalavimai
+----------------------------------
+
+* PHP 5.4
+* MySQL 5.0
+* GD biblioteka
+* JSON
+* ctype
+* php.ini turi turėti date.timezone nustatymą
+* Composer
