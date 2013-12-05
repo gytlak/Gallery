@@ -36,6 +36,7 @@ class CommentController extends Controller
 
     /**
      * Deletes comment by comment id.
+     * Checks if user is admin.
      * Creates response.
      *
      * @param $id
@@ -46,10 +47,17 @@ class CommentController extends Controller
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository('NFQAkademijaGalleryBundle:Comment')->find($id);
 
-        $em->remove($comment);
-        $em->flush();
-
-        return new Response(json_encode(array('status' => 'OK')));
+        $admin = false;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $admin = true;
+        }
+        if ($admin) {
+            $em->remove($comment);
+            $em->flush();
+            return new Response(json_encode(array('status' => 'OK')));
+        } else {
+            return new Response(json_encode(array('status' => 'ERROR')));
+        }
     }
 
     /**
