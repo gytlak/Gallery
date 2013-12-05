@@ -47,6 +47,5 @@ Reikalavimai
 Live demo
 ----------------------------------
 
-[Projekto demo internete](1)
-
-[1]:  http://www.gallery.96.lt
+Projekto demo internete:
+http://www.gallery.96.lt
