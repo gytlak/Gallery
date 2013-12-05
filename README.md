@@ -49,4 +49,4 @@ Live demo
 
 [Projekto demo internete](1)
 
-[1]:  http://gallery.96.lt
+[1]:  http://www.gallery.96.lt
