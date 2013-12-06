@@ -28,6 +28,7 @@ Funkcionalumas
         * Patikimai saugomi pagal kompiuterio iš kurio siųstas patikimas IP.
     * Tagų prisegimas (AJAX).
         * Nuotraukos puslapyje paspaudus ant tago randamos kitos nuotraukos turinčios tokį tagą.
+        * Nuotraukų paieška pagal tagą.
     * Thumbnail`s sukūrimas ir kešavimas (naudojant avalanche123/imagine-bundle).
     * Nuotraukos atvaizduojamos magnific-popup pagalba, per AJAX iškviečiant nuotraukos view`ą.
     * Peržiūrint nuotrauką rodyklių pagalba galima pereiti į buvusią ar sekančią albumo nuotrauką (AJAX).

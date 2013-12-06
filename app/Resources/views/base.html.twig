@@ -34,12 +34,14 @@
                         <ul class="nav">
                             <li><a href="{{ path('nfqakademija_album_form') }}">New album</a></li>
                             <li><a href="{{ path('nfqakademija_photo_form') }}">New photo</a></li>
+                            <li><a href="{{ path('nfqakademija_gallery_search') }}">Search</a></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                         </ul>
                         {% else %}
                         <ul class="nav">
                             <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
                             <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                            <li><a href="{{ path('nfqakademija_gallery_search') }}">Search</a></li>
                         </ul>
                         {% endif %}
                     </div><!--/.nav-collapse -->

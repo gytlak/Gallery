@@ -15,8 +15,16 @@ nfqakademija_gallery_photo:
                 id:  \d+
 
 nfqakademija_gallery_search:
+    path: /search
+    defaults: { _controller: NFQAkademijaGalleryBundle:Tag:form }
+
+nfqakademija_search_results:
     path: /search/{name}
-    defaults: { _controller: NFQAkademijaGalleryBundle:Tag:search }
+    defaults: { _controller: NFQAkademijaGalleryBundle:Tag:index }
+
+nfqakademija_search_post:
+    pattern: /s
+    defaults: { _controller: NFQAkademijaGalleryBundle:Tag:post }
 
 nfqakademija_comment_post:
     pattern: /comment/post/{id}

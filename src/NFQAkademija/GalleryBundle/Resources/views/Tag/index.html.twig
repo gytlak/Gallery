@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Search{% endblock %}
+{% block title %}Search results{% endblock %}
 {% block head %}
     {{ parent() }}
 {% endblock %}
@@ -8,7 +8,7 @@
 {% block content %}
 
     <div class="route">
-        <a href="{{ path('nfqakademija_gallery_homepage') }}">Home</a> &raquo; <a href="#">Search</a><br/>
+        <a href="{{ path('nfqakademija_gallery_homepage') }}">Home</a> &raquo; <a href="{{ path('nfqakademija_gallery_search') }}">Search</a> &raquo; <a href="#">Results</a><br/>
     </div>
     {% if tags is not empty %}
         {% for tag in tags %}

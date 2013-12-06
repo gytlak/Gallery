@@ -13,12 +13,12 @@
             {% if photo.tags is not empty %}
                 Tags:
                 {% for tag in photo.tags %}
-                    <a href="{{ path('nfqakademija_gallery_search', {name: tag.name}) }}">{{ tag.name }}</a>
+                    <a href="{{ path('nfqakademija_search_results', {name: tag.name}) }}">{{ tag.name }}</a>
                 {% endfor %}
                 <br/>
             {% endif %}
             {% if photo.albums is not empty %}
-                Album(s):
+                Albums:
                 {% for album in photo.albums %}
                     {{ album.name }}
                 {% endfor %}

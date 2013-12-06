@@ -46,7 +46,7 @@ class PhotoType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                 ))
                 ->add('tags', 'collection', array(
-                    'type'         => new TagType(),
+                    'type'         => new TagType(false),
                     'allow_add'    => true,
                     'prototype' => true,
                     'by_reference' => false,
@@ -67,7 +67,7 @@ class PhotoType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                 ))
                 ->add('tags', 'collection', array(
-                    'type'         => new TagType(),
+                    'type'         => new TagType(false),
                     'allow_add'    => true,
                     'prototype' => true,
                     'by_reference' => false,

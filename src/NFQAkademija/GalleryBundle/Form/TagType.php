@@ -8,12 +8,31 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TagType extends AbstractType
 {
     /**
+     * @var
+     */
+    protected $search;
+
+    /**
+     * @param $search
+     */
+    public function __construct ($search)
+    {
+        $this->search = $search;
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        if ($this->search) {
+            $builder
+                ->add('name')
+                ->add('search', 'submit');
+        } else {
+            $builder->add('name');
+        }
     }
 
     /**
