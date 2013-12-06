@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PhotoController extends Controller
 {
     /**
-     * Gets photos by album id using photo service
-     * and album by album id using album service.
+     * Gets photos and album by album id using photo service.
      * Renders them.
      *
      * @param $id
@@ -37,6 +36,7 @@ class PhotoController extends Controller
 
     /**
      * Deletes photo by photo id using photo service.
+     * Checks if user is admin.
      * Creates response.
      *
      * @param $id

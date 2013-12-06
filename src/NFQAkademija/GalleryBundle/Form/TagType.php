@@ -21,6 +21,10 @@ class TagType extends AbstractType
     }
 
     /**
+     * Builds tag form.
+     * Cheks if it`s for search,
+     * if it is add`s submit button.
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      */
