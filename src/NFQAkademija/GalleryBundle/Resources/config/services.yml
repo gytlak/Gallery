@@ -6,6 +6,7 @@ services:
     nfqakademija_gallery.album_service:
         class: %nfqakademija_gallery.album_service.class%
         arguments: [@doctrine.orm.entity_manager]
+
     nfqakademija_gallery.photo_service:
-            class: %nfqakademija_gallery.photo_service.class%
-            arguments: [@doctrine.orm.entity_manager]
+        class: %nfqakademija_gallery.photo_service.class%
+        arguments: [@doctrine.orm.entity_manager]
