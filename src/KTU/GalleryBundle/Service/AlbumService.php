@@ -84,7 +84,7 @@ class AlbumService
 
     /**
      * Gets album by album id and returns it.
-     * If no album is found or user ir not author of the album
+     * If no album is found or user is not author of the album
      * or not admin, returns new album object.
      *
      * @param $id
