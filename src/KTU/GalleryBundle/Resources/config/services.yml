@@ -1,0 +1,12 @@
+parameters:
+    ktu_gallery.album_service.class: KTU\GalleryBundle\Service\AlbumService
+    ktu_gallery.photo_service.class: KTU\GalleryBundle\Service\PhotoService
+
+services:
+    ktu_gallery.album_service:
+        class: %ktu_gallery.album_service.class%
+        arguments: [@doctrine.orm.entity_manager]
+
+    ktu_gallery.photo_service:
+        class: %ktu_gallery.photo_service.class%
+        arguments: [@doctrine.orm.entity_manager]

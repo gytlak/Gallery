@@ -1,4 +1,4 @@
-NFQ Akademija - Gallery
+KTU - Gallery
 ========================
 
 Funkcionalumas
@@ -48,4 +48,4 @@ Live demo
 ----------------------------------
 
 Projekto demo internete:
-http://www.gallery.96.lt
+Not yet ready...

@@ -24,8 +24,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
 
-            #NFQ Akademija
-            new NFQAkademija\GalleryBundle\NFQAkademijaGalleryBundle(),
+            #KTU
+            new KTU\GalleryBundle\KTUGalleryBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

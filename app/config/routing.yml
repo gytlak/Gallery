@@ -1,5 +1,5 @@
-nfqakademija_gallery:
-    resource: "@NFQAkademijaGalleryBundle/Resources/config/routing.yml"
+ktu_gallery:
+    resource: "@KTUGalleryBundle/Resources/config/routing.yml"
     prefix:   /
 
 fos_user_security:

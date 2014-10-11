@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Photo form{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="route">
+        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="#">Photo form</a><br/>
+        Hint: Multiple albums can be selected.
+    </div>
+
+    {{ form(photo_form) }}
+
+{% endblock %}

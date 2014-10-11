@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Search{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="route">
+        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="#">Search</a><br/>
+        Search photos by tag name.
+    </div>
+
+    {{ form(search_form) }}
+
+{% endblock %}

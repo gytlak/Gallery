@@ -35,8 +35,8 @@ body {
     overflow: auto;
 }
 
-#nfqakademija_gallerybundle_comment_username,
-#nfqakademija_gallerybundle_comment_comment {
+#ktu_gallerybundle_comment_username,
+#ktu_gallerybundle_comment_comment {
     width: 94%;
 }
 
@@ -151,15 +151,15 @@ form {
     margin-right:2%;
 }
 
-#nfqakademija_gallerybundle_phototype {
+#ktu_gallerybundle_phototype {
     width: 20%;
 }
 
-#nfqakademija_gallerybundle_phototype_tags .required {
+#ktu_gallerybundle_phototype_tags .required {
     float: left;
 }
 
-#nfqakademija_gallerybundle_phototype_tags input {
+#ktu_gallerybundle_phototype_tags input {
     float: none;
 }
 
@@ -182,8 +182,8 @@ form {
         width:96%;
     }
 
-    #nfqakademija_gallerybundle_comment_username,
-    #nfqakademija_gallerybundle_comment_comment {
+    #ktu_gallerybundle_comment_username,
+    #ktu_gallerybundle_comment_comment {
         width: auto;
     }
 
@@ -206,7 +206,7 @@ form {
         width: 97%;
     }
 
-    #nfqakademija_gallerybundle_phototype {
+    #ktu_gallerybundle_phototype {
         width: 50%;
     }
 }

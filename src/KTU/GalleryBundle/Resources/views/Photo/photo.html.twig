@@ -1,0 +1,61 @@
+{# No HTML headers and stuff because it`s a magnific popup. Otherwise closes on content click. #}
+{% block photo_popup %}
+
+    <div class="photo-popup">
+        <div class="photo-column">
+            <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('thumb') }}" />
+        </div>
+        <div class="text-column">
+            <h2>{{ photo.name }}</h2>
+            Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
+            Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
+            Author: {{ photo.userId.username }}<br/>
+            {% if photo.tags is not empty %}
+                Tags:
+                {% for tag in photo.tags %}
+                    <a href="{{ path('ktu_search_results', {name: tag.name}) }}">{{ tag.name }}</a>
+                {% endfor %}
+                <br/>
+            {% endif %}
+            {% if photo.albums is not empty %}
+                Albums:
+                {% for album in photo.albums %}
+                    {{ album.name }}
+                {% endfor %}
+                <br/>
+            {% endif %}
+            Description: {{ photo.shortDescription }}<br/>
+
+            <a class="like" href="{{ path('ktu_photo_like', {id: photo.id}) }}">Like</a>
+            (<span class="like-count">{{ photo.likes|length }}</span>) |
+            <a target="_blank" href="{{ asset(vich_uploader_asset(photo, 'photo')) }}">Original image</a>
+            <h4>Comments:</h4>
+            {% if photo.comments is not empty %}
+                {% for comment in photo.comments %}
+                    <div class="item">
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href="{{ path('ktu_comment_delete', {id: comment.id}) }}" class="delete">X</a>
+                        {% endif %}
+                        <strong>{{ comment.userId.username }}</strong>
+                        (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
+                        {{ comment.comment }}<br/>
+                    </div>
+                {% endfor %}
+            {% else %}
+                No comments yet.
+            {% endif %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <h4>Add comment:</h4>
+            {{ render(controller('KTUGalleryBundle:Comment:form', {id: photo.id})) }}
+            {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/ktu.likeButton.js') }}"></script>
+        <script src="{{ asset('js/ktu.commentButton.js') }}"></script>
+        <script src="{{ asset('js/ktu.deleteButton.js') }}"></script>
+    {% endblock %}
+
+{% endblock %}

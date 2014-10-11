@@ -1,0 +1,49 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Photos in {{ album.name }}{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="route">
+        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="{{ path('ktu_gallery_homepage') }}">Albums</a> &raquo; <a href="#">{{ album.name }}</a><br/>
+        Created: {{ album.created|date("Y-m-d") }}<br/>
+        Author: {{ album.userId.username }}<br/>
+        Place: {{ album.place }}<br/>
+        Full description: {{ album.fullDescription }}<br/>
+    </div>
+    {% if photos is not empty %}
+        {% for photo in photos %}
+            <div class="item">
+                <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
+                {% if (is_granted("ROLE_ADMIN") or app.user == photo.userId) %}
+                    <div class="admin">
+                        <a class="icon delete" href="{{ path('ktu_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
+                        <a class="icon" href="{{ path('ktu_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
+                        <a class="icon" href="{{ path('ktu_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+                    </div>
+                {% endif %}
+                <div class="text">
+                    <h2><a class="popup" href="{{ path('ktu_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2><br/>
+                    <p>
+                        Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
+                        Author: {{ photo.userId.username }}<br/>
+                        Likes: {{ photo.likes|length }}<br/>
+                        Comments: {{ photo.comments|length }}<br/>
+                        Description: {{ photo.shortDescription }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="route">
+            No photos in this album yet.
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <br/>Hint: To create a photo in this album press "New photo" in the menu above and select {{ album.name }}.
+            {% endif %}
+        </div>
+    {% endif %}
+
+{% endblock %}
