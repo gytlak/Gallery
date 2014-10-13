@@ -48,4 +48,4 @@ Live demo
 ----------------------------------
 
 Projekto demo internete:
-Not yet ready...
+http://ktu.gytis.me
