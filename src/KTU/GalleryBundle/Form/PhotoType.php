@@ -41,10 +41,6 @@ class PhotoType extends AbstractType
             $builder
                 ->add('name')
                 ->add('shortDescription')
-                ->add('photoDate', 'date', array(
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                ))
                 ->add('tags', 'collection', array(
                     'type'         => new TagType(false),
                     'allow_add'    => true,
@@ -62,10 +58,6 @@ class PhotoType extends AbstractType
             $builder
                 ->add('name')
                 ->add('shortDescription')
-                ->add('photoDate', 'date', array(
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                ))
                 ->add('tags', 'collection', array(
                     'type'         => new TagType(false),
                     'allow_add'    => true,

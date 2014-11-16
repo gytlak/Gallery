@@ -34,18 +34,14 @@ class AlbumType extends AbstractType
         if ($this->album->getPhotos()->isEmpty()) {
             $builder
                 ->add('name')
-                ->add('shortDescription')
                 ->add('fullDescription')
                 ->add('place')
-                ->add('shortDescription')
                 ->add('save', 'submit');
         } else {
             $builder
                 ->add('name')
-                ->add('shortDescription')
                 ->add('fullDescription')
                 ->add('place')
-                ->add('shortDescription')
                 ->add('titlePhoto', 'entity', array(
                     'class' => 'KTUGalleryBundle:Photo',
                     'choices' => $this->album->getPhotos()))

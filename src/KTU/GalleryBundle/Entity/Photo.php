@@ -71,13 +71,6 @@ class Photo
     private $shortDescription;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="photo_date", type="datetime")
-     */
-    private $photoDate;
-
-    /**
      * @Assert\Image
      * @Vich\UploadableField(mapping="photo", fileNameProperty="photoUrl")
      *
@@ -255,29 +248,6 @@ class Photo
     public function getShortDescription()
     {
         return $this->shortDescription;
-    }
-
-    /**
-     * Set photoDate
-     *
-     * @param \DateTime $photoDate
-     * @return Photo
-     */
-    public function setPhotoDate($photoDate)
-    {
-        $this->photoDate = $photoDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get photoDate
-     *
-     * @return \DateTime 
-     */
-    public function getPhotoDate()
-    {
-        return $this->photoDate;
     }
 
     /**

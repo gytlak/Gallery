@@ -8,7 +8,6 @@
         <div class="text-column">
             <h2>{{ photo.name }}</h2>
             Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
-            Taken: {{ photo.photoDate|date("Y-m-d") }}<br/>
             Author: {{ photo.userId.username }}<br/>
             {% if photo.tags is not empty %}
                 Tags:

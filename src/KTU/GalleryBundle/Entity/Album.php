@@ -39,13 +39,6 @@ class Album
     /**
      * @var string
      *
-     * @ORM\Column(name="short_description", type="string", length=255)
-     */
-    private $shortDescription;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="full_description", type="text")
      */
     private $fullDescription;
@@ -134,29 +127,6 @@ class Album
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set shortDescription
-     *
-     * @param string $shortDescription
-     * @return Album
-     */
-    public function setShortDescription($shortDescription)
-    {
-        $this->shortDescription = $shortDescription;
-    
-        return $this;
-    }
-
-    /**
-     * Get shortDescription
-     *
-     * @return string updated
-     */
-    public function getShortDescription()
-    {
-        return $this->shortDescription;
     }
 
     /**
