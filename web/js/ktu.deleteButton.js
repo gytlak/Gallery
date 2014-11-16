@@ -41,8 +41,8 @@
     DeleteButton.prototype._handleResponse = function(data)
     {
         if (data.status == 'OK') {
-            this.element.parents(".item").css( "background-color", "#E8CDCC" );
-            this.element.parents(".item").fadeOut(300).unbind('click').attr('href', 'javascript:;');
+            this.element.parents(".w-col").css( "background-color", "#E8CDCC" );
+            this.element.parents(".w-col").fadeOut(300).unbind('click').attr('href', 'javascript:;');
         } else if (data.status == 'ERROR') {
             alert('ERROR: You probably tried deleting album`s title photo. Or you are unauthorized to delete this object.');
         } else {

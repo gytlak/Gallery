@@ -1,6 +1,76 @@
-body {
-    padding-top: 60px;
-    padding-bottom: 40px;
+input, textarea, select {
+    font-family: sans-serif;
+    margin-bottom:20px;
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-bottom: solid 2px #969696;
+}
+
+input[type="checkbox"] {
+    float:left;
+    display: block;
+    width: auto;
+}
+
+label[for="remember_me"] {
+    margin-left: 10px;
+    width: auto;
+}
+
+.add_tag_link {
+    display: block;
+    float: left;
+    font-size: 14px;
+}
+
+a.link:link, a.link:visited {
+    color: #2c2c2c;
+    text-decoration: none;
+}
+
+a.link:hover, a.link:active {
+    color: #2c2c2c;
+    text-decoration: underline;
+}
+
+button {
+    float: left;
+    margin-top:20px;
+    display: inline-block;
+    margin-right: 8px;
+    margin-left: 8px;
+    padding: 14px 29px;
+    border-radius: 5px;
+    background-color: #6d7280;
+    -webkit-transition: background-color 300ms ease;
+    -o-transition: background-color 300ms ease;
+    transition: background-color 300ms ease;
+    font-family: Montserrat, sans-serif;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+label {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    float: left;
 }
 
 .photo-popup {
@@ -11,8 +81,8 @@ body {
     padding: 5px;
     position: relative;
     -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-            border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .photo-column {
@@ -58,29 +128,6 @@ form {
     margin:0.5%;
 }
 
-.item {
-    float: left;
-    position: relative;
-    max-height: 300px;
-    overflow: hidden;
-    width: 22%;
-    margin: 0.5%;
-    padding: 1%;
-    background-color: #eee;
-    -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-            border-radius: 5px;
-}
-
-.item p {
-    width: 90%;
-}
-
-.text-column .item {
-    width:97%;
-    margin: 0 0 1% 0;
-}
-
 .text h2,
 .text p {
     display: inline;
@@ -92,75 +139,6 @@ form {
 .text h2 {
     font-size:1.75em;
     line-height: 1.25em;
-}
-
-.btn {
-    float: left;
-}
-
-.icon {
-    float: left;
-}
-
-.admin {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    padding:4%;
-}
-
-.text {
-    overflow: hidden;
-    white-space: nowrap;
-    position: absolute;
-    bottom:5%;
-    left:5%;
-}
-
-.form-signin {
-    max-width: 300px;
-    padding: 2%;
-    margin: 0 auto 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-            border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            box-shadow: 0 1px 2px rgba(0,0,0,.05);
-}
-
-.form-signin input[type="text"],
-.form-signin input[type="password"],
-.form-signin input[type="email"] {
-    display: block;
-    width: 100%;
-    min-height: 30px;
-        -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-                box-sizing: border-box;
-    font-size: 16px;
-    height: auto;
-    margin-bottom: 15px;
-    padding: 7px 9px;
-}
-
-.form-signin input[type="checkbox"] {
-    float:left;
-    margin-right:2%;
-}
-
-#ktu_gallerybundle_phototype {
-    width: 20%;
-}
-
-#ktu_gallerybundle_phototype_tags .required {
-    float: left;
-}
-
-#ktu_gallerybundle_phototype_tags input {
-    float: none;
 }
 
 @media (max-width: 980px) {
@@ -198,15 +176,5 @@ form {
 @media (max-width: 650px) {
     .item {
         width: 47%;
-    }
-}
-
-@media (max-width: 430px) {
-    .item {
-        width: 97%;
-    }
-
-    #ktu_gallerybundle_phototype {
-        width: 50%;
     }
 }

@@ -5,45 +5,59 @@
     {{ parent() }}
 {% endblock %}
 
-{% block content %}
-
-    <div class="route">
-        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="{{ path('ktu_gallery_homepage') }}">Albums</a> &raquo; <a href="#">{{ album.name }}</a><br/>
-        Created: {{ album.created|date("Y-m-d") }}<br/>
-        Author: {{ album.userId.username }}<br/>
-        Place: {{ album.place }}<br/>
-        Full description: {{ album.fullDescription }}<br/>
-    </div>
-    {% if photos is not empty %}
-        {% for photo in photos %}
-            <div class="item">
-                <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
-                {% if (is_granted("ROLE_ADMIN") or app.user == photo.userId) %}
-                    <div class="admin">
-                        <a class="icon delete" href="{{ path('ktu_photo_delete', {id: photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                        <a class="icon" href="{{ path('ktu_photo_form', {id: photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                        <a class="icon" href="{{ path('ktu_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
-                    </div>
-                {% endif %}
-                <div class="text">
-                    <h2><a class="popup" href="{{ path('ktu_gallery_photo', {id: photo.id}) }}">{{ photo.name }}</a></h2><br/>
-                    <p>
-                        Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
-                        Author: {{ photo.userId.username }}<br/>
-                        Likes: {{ photo.likes|length }}<br/>
-                        Comments: {{ photo.comments|length }}<br/>
-                        Description: {{ photo.shortDescription }}
-                    </p>
+{% block header %}
+    <div class="section hero">
+        <div class="w-container">
+            {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <h1 class="hero-heading">Create beautiful online photo albums.</h1>
+                <p class="hero-subhead">Show off your photos in the best light. &nbsp;Just upload and we’ll do the rest.</p>
+                <div class="button-group">
+                    <a class="button sign-up" href="{{ path('fos_user_registration_register') }}">Sign up for free</a>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="route">
-            No photos in this album yet.
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <br/>Hint: To create a photo in this album press "New photo" in the menu above and select {{ album.name }}.
+            {% else %}
+                <h1 class="hero-heading">{{ album.name }}</h1>
+                <p class="section-subtitle">{{ album.created|date("Y-m-d") }} | {{ album.userId.username }} | {{ album.place }}</p>
+                <p class="hero-subhead">{{ album.fullDescription }}</p>
+                <div class="button-group">
+                    <a class="button sign-up" href="{{ path('ktu_photo_form') }}">Add photo</a>
+                </div>
             {% endif %}
         </div>
-    {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="w-container">
+        {% if photos is not empty %}
+            {% for row in photos|batch(4) %}
+                <div class="w-row">
+                    {% for photo in row %}
+                        <div class="w-col w-col-3 w-col-small-6">
+                            <a class="popup link" href="{{ path('ktu_gallery_photo', {id: photo.id}) }}">
+                                <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
+                                <h3>{{ photo.name }}</h3>
+                            </a>
+                            <p>{{ photo.shortDescription }}</p>
+
+                            {% if (is_granted("ROLE_ADMIN") or app.user == album.userId) %}
+                                <p>
+                                    <a class="delete link" href="{{ path('ktu_photo_delete', {id: photo.id}) }}">Remove</a> |
+                                    <a class="link" href="{{ path('ktu_photo_form', {id: photo.id}) }}">Edit</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2 class="section-title">No photos</h2>
+            <p class="section-subtitle">There are currently no photos in this album
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <br/>Hint: To create a photo in this album press "New photo" in the menu above and select {{ album.name }}.
+                {% endif %}
+            </p>
+        {% endif %}
+    </div>
 
 {% endblock %}

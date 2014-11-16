@@ -7,36 +7,33 @@
 
 {% block content %}
 
-    <div class="route">
-        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="{{ path('ktu_gallery_search') }}">Search</a> &raquo; <a href="#">Results</a><br/>
-    </div>
-    {% if tags is not empty %}
-        {% for tag in tags %}
-            <div class="item">
-                <img alt="{{ tag.photo.name }}" src="{{ vich_uploader_asset(tag.photo, 'photo') | apply_filter('list_thumb') }}" />
-                {% if (is_granted("ROLE_ADMIN") or app.user == tag.photo.userId) %}
-                    <div class="admin">
-                        <a class="icon delete" href="{{ path('ktu_photo_delete', {id: tag.photo.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                        <a class="icon" href="{{ path('ktu_photo_form', {id: tag.photo.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                        <a class="icon" href="{{ path('ktu_photo_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
-                    </div>
-                {% endif %}
-                <div class="text">
-                    <h2><a class="popup" href="{{ path('ktu_gallery_photo', {id: tag.photo.id}) }}">{{ tag.photo.name }}</a></h2><br/>
-                    <p>
-                        Uploaded: {{ tag.photo.created|date("Y-m-d") }}<br/>
-                        Author: {{ tag.photo.userId.username }}<br/>
-                        Likes: {{ tag.photo.likes|length }}<br/>
-                        Comments: {{ tag.photo.comments|length }}<br/>
-                        Description: {{ tag.photo.shortDescription }}
-                    </p>
+    <div class="w-container">
+        {% if tags is not empty %}
+            {% for tag in tags|batch(4) %}
+                <div class="w-row">
+                    {% for photo in tag %}
+                        <div class="w-col w-col-3 w-col-small-6">
+                            <a class="popup link" href="{{ path('ktu_gallery_photo', {id: photo.photo.id}) }}">
+                                <img alt="{{ photo.photo.name }}" src="{{ vich_uploader_asset(photo.photo, 'photo') | apply_filter('list_thumb') }}" />
+                                <h3>{{ photo.photo.name }}</h3>
+                            </a>
+                            <p>{{ photo.photo.shortDescription }}</p>
+
+                            {% if (is_granted("ROLE_ADMIN") or app.user == photo.photo.userId) %}
+                                <p>
+                                    <a class="delete link" href="{{ path('ktu_photo_delete', {id: photo.photo.id}) }}">Remove</a> |
+                                    <a class="link" href="{{ path('ktu_photo_form', {id: photo.photo.id}) }}">Edit</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="route">
-            There was no photos found by this tag.
-        </div>
-    {% endif %}
+            {% endfor %}
+        {% else %}
+            <h2 class="section-title">No photos</h2>
+            <p class="section-subtitle">No photos were found by this tag name.
+            </p>
+        {% endif %}
+    </div>
 
 {% endblock %}

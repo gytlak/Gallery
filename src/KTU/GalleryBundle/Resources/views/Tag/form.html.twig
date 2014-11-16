@@ -7,11 +7,13 @@
 
 {% block content %}
 
-    <div class="route">
-        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="#">Search</a><br/>
-        Search photos by tag name.
-    </div>
+    <div class="w-container">
+        <h2 class="section-title">Search</h2>
+        <p class="section-subtitle">
+            Search photos by tag name
+        </p>
 
-    {{ form(search_form) }}
+        {{ form(search_form) }}
+    </div>
 
 {% endblock %}

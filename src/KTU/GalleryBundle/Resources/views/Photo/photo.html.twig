@@ -31,7 +31,7 @@
             <h4>Comments:</h4>
             {% if photo.comments is not empty %}
                 {% for comment in photo.comments %}
-                    <div class="item">
+                    <div class="item w-col">
                         {% if is_granted("ROLE_ADMIN") %}
                             <a href="{{ path('ktu_comment_delete', {id: comment.id}) }}" class="delete">X</a>
                         {% endif %}
@@ -48,7 +48,7 @@
             {{ render(controller('KTUGalleryBundle:Comment:form', {id: photo.id})) }}
             {% endif %}
         </div>
-        <div class="clearfix"></div>
+        <div class="w-clearfix"></div>
     </div>
 
     {% block javascripts %}

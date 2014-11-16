@@ -7,11 +7,13 @@
 
 {% block content %}
 
-    <div class="route">
-        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="#">Photo form</a><br/>
-        Hint: Multiple albums can be selected.
-    </div>
+    <div class="w-container">
+        <h2 class="section-title">Photo form</h2>
+        <p class="section-subtitle">
+            Hint: Multiple albums can be selected.
+        </p>
 
-    {{ form(photo_form) }}
+        {{ form(photo_form) }}
+    </div>
 
 {% endblock %}

@@ -5,43 +5,62 @@
     {{ parent() }}
 {% endblock %}
 
+{% block header %}
+    <div class="section hero">
+    <div class="w-container">
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <h1 class="hero-heading">Create beautiful online photo albums.</h1>
+        <p class="hero-subhead">Show off your photos in the best light. &nbsp;Just upload and we’ll do the rest.</p>
+        <div class="button-group">
+            <a class="button sign-up" href="{{ path('fos_user_registration_register') }}">Sign up for free</a>
+        </div>
+    {% else %}
+        <h1 class="hero-heading">Gallery albums</h1>
+        <p class="hero-subhead">Albums that are currently available in the Gallery.</p>
+        <div class="button-group">
+            <a class="button sign-up" href="{{ path('ktu_album_form') }}">Create new album</a>
+        </div>
+    {% endif %}
+    </div>
+    </div>
+{% endblock %}
+
 {% block content %}
 
-    <div class="route">
-        <a href="#">Home</a> &raquo; <a href="#">Albums</a>
-    </div>
+    <div class="w-container">
     {% if albums is not empty %}
-        {% for album in albums %}
-            <div class="item">
-                {% if album.titlePhoto != NULL %}
-                    <img alt="{{ album.name }}" src="{{ vich_uploader_asset(album.titlePhoto, 'photo') | apply_filter('list_thumb') }}" />
-                {% else %}
-                    <img alt="" src="{{ asset('img/unset.png')  }}" />
-                {% endif %}
-                {% if (is_granted("ROLE_ADMIN") or app.user == album.userId) %}
-                    <div class="admin">
-                        <a class="icon delete" href="{{ path('ktu_album_delete', {id: album.id}) }}"><img src="{{ asset('img/delete.png') }}" alt="Delete" /></a>
-                        <a class="icon" href="{{ path('ktu_album_form', {id: album.id}) }}"><img src="{{ asset('img/edit.png') }}" alt="Edit" /></a>
-                        <a class="icon" href="{{ path('ktu_album_form') }}"><img src="{{ asset('img/add.png') }}" alt="Add" /></a>
+        {% for row in albums|batch(4) %}
+            <div class="w-row">
+                {% for album in row %}
+                    <div class="w-col w-col-3 w-col-small-6">
+                        <a class="link" href="{{ path('ktu_gallery_album', {id: album.id}) }}">
+                            {% if album.titlePhoto != NULL %}
+                                <img class="responsive-img" alt="{{ album.name }}" src="{{ vich_uploader_asset(album.titlePhoto, 'photo') | apply_filter('list_thumb') }}" />
+                            {% else %}
+                                <img class="responsive-img" alt="" src="{{ asset('images/unset.png')  }}" />
+                            {% endif %}
+                            <h3>{{ album.name }}</h3>
+                        </a>
+                        <p>{{ album.fullDescription }}</p>
+
+                        {% if (is_granted("ROLE_ADMIN") or app.user == album.userId) %}
+                            <p>
+                                <a class="delete link" href="{{ path('ktu_album_delete', {id: album.id}) }}">Remove</a> |
+                                <a class="link" href="{{ path('ktu_album_form', {id: album.id}) }}">Edit</a>
+                            </p>
+                        {% endif %}
                     </div>
-                {% endif %}
-                <div class="text">
-                    <h2><a href="{{ path('ktu_gallery_album', {id: album.id}) }}">{{ album.name }}</a></h2><br/>
-                    <p>
-                        Created: {{ album.created|date("Y-m-d") }}<br/>
-                        Author: {{ album.userId.username }}<br/>
-                        Photos: {{ album.photos|length }}
-                    </p>
-                </div>
+                {% endfor %}
             </div>
         {% endfor %}
     {% else %}
-        <div class="route">
-            No albums in the gallery yet.
+        <h2 class="section-title">No albums</h2>
+        <p class="section-subtitle">There are currently no albums in the gallery
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <br/>Hint: To create an album press "New album" in the menu above.
             {% endif %}
-        </div>
+        </p>
     {% endif %}
+    </div>
 
 {% endblock %}

@@ -7,11 +7,13 @@
 
 {% block content %}
 
-    <div class="route">
-        <a href="{{ path('ktu_gallery_homepage') }}">Home</a> &raquo; <a href="#">Album form</a><br/>
-        Hint: You will be able to set title photo after you add photos to this album.
-    </div>
+    <div class="w-container">
+        <h2 class="section-title">Album form</h2>
+        <p class="section-subtitle">
+            Hint: You will be able to set title photo after you add photos to this album.
+        </p>
 
     {{ form(album_form) }}
+    </div>
 
 {% endblock %}
