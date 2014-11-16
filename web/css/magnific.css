@@ -8,8 +8,7 @@
     overflow: hidden;
     position: fixed;
     background: #0b0b0b;
-    opacity: 0.8;
-    filter: alpha(opacity=80); }
+    opacity: 0.8; }
 
 .mfp-wrap {
     top: 0;
@@ -73,8 +72,7 @@
 
 .mfp-close, .mfp-arrow, .mfp-preloader, .mfp-counter {
     -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none; }
+    -moz-user-select: none; }
 
 .mfp-loading.mfp-figure {
     display: none; }
