@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             #KTU
             new KTU\GalleryBundle\KTUGalleryBundle(),

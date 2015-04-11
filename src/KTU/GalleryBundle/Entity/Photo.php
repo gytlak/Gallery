@@ -48,7 +48,7 @@ class Photo
     private $albums;
 
     /**
-     * @var datetime $created
+     * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -56,7 +56,7 @@ class Photo
     private $created;
 
     /**
-     * @var datetime $updated
+     * @var \DateTime $updated
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
@@ -372,4 +372,83 @@ class Photo
         $this->tags->removeElement($tag);
     }
 
+
+    /**
+     * Remove albums
+     *
+     * @param \KTU\GalleryBundle\Entity\Album $albums
+     */
+    public function removeAlbum(\KTU\GalleryBundle\Entity\Album $albums)
+    {
+        $this->albums->removeElement($albums);
+    }
+
+    /**
+     * Add likes
+     *
+     * @param \KTU\GalleryBundle\Entity\Like $likes
+     * @return Photo
+     */
+    public function addLike(\KTU\GalleryBundle\Entity\Like $likes)
+    {
+        $this->likes[] = $likes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove likes
+     *
+     * @param \KTU\GalleryBundle\Entity\Like $likes
+     */
+    public function removeLike(\KTU\GalleryBundle\Entity\Like $likes)
+    {
+        $this->likes->removeElement($likes);
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \KTU\GalleryBundle\Entity\Comment $comments
+     * @return Photo
+     */
+    public function addComment(\KTU\GalleryBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \KTU\GalleryBundle\Entity\Comment $comments
+     */
+    public function removeComment(\KTU\GalleryBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \KTU\GalleryBundle\Entity\Tag $tags
+     * @return Photo
+     */
+    public function addTag(\KTU\GalleryBundle\Entity\Tag $tags)
+    {
+        $this->tags[] = $tags;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \KTU\GalleryBundle\Entity\Tag $tags
+     */
+    public function removeTag(\KTU\GalleryBundle\Entity\Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
 }

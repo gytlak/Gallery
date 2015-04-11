@@ -7,7 +7,7 @@
 /vendor/
 /bin/
 /composer.phar
-/composer.lock
+/web/app_dev.php
 
 .idea
 .DS_Store

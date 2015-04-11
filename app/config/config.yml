@@ -73,6 +73,21 @@ fos_user:
     firewall_name: main
     user_class: KTU\GalleryBundle\Entity\User
 
+hwi_oauth:
+    connect:
+        account_connector: ktu_gallery.user_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook: facebook_id
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           "1577865935795227"
+            client_secret:       "e44c3eba5258657059cfebac9fdeb1b6"
+            scope:               "email"
+
 stof_doctrine_extensions:
     default_locale: en_US
     orm:
