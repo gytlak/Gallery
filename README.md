@@ -46,4 +46,4 @@ Live demo
 ----------------------------------
 
 Projekto demo internete:
-http://ktu.gytis.me
+http://gallery.gytis.me
