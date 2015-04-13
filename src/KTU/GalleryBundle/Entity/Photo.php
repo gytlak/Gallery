@@ -172,6 +172,16 @@ class Photo
     }
 
     /**
+     * Set albums
+     *
+     * @param \Doctrine\Common\Collections\Collection $albums
+     */
+    public function setAlbums($albums)
+    {
+        $this->albums = $albums;
+    }
+
+    /**
      * Get albums
      *
      * @return \KTU\GalleryBundle\Entity\Album

@@ -2,6 +2,7 @@
 namespace KTU\GalleryBundle\Controller;
 
 use KTU\GalleryBundle\Entity\Photo;
+use KTU\GalleryBundle\Entity\Tag;
 use KTU\GalleryBundle\Form\PhotoType;
 use KTU\GalleryBundle\Service\PhotoService;
 use KTU\GalleryBundle\Service\AlbumService;
@@ -110,7 +111,7 @@ class PhotoController extends Controller
 
         $form = $this->createForm(
             new PhotoType($photo, $albums),
-            $photo,
+            null,
             array(
                 'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
             )
@@ -152,14 +153,28 @@ class PhotoController extends Controller
             $albums = $albumService->getAlbumsByUser($user);
         }
 
-        $form = $this->createForm(new PhotoType($photo, $albums), $photo);
+        $form = $this->createForm(new PhotoType($photo, $albums), null);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $photo = $form->getData();
-            $photo->setUserId($user);
-            $em->persist($photo);
+            $i=1;
+            foreach ($form->getData()['photos'] as $item) {
+                $document = new Photo();
+                $document->setName($form->getData()['name'] . ' ' . $i);
+                $document->setPhoto($item);
+                $document->setUserId($user);
+                $document->setShortDescription($form->getData()['shortDescription']);
+                $document->setAlbums($form->getData()['albums']);
+                foreach (explode(',', $form->getData()['tags']) as $tag) {
+                    $documentTag = new Tag();
+                    $documentTag->setPhoto($document);
+                    $documentTag->setName($tag);
+                    $document->addTag($documentTag);
+                }
+                $em->persist($document);
+                $i++;
+            }
             $em->flush();
         }
         return $this->redirect($this->generateUrl('ktu_gallery_homepage'));

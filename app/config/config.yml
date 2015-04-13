@@ -97,8 +97,7 @@ stof_doctrine_extensions:
 vich_uploader:
     db_driver: orm
     twig: true
-    gaufrette: false
-    storage: vich_uploader.storage.file_system
+    storage: file_system
     mappings:
         photo:
             uri_prefix: photos

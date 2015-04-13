@@ -44,13 +44,6 @@ class Album
     private $fullDescription;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="place", type="string", length=255)
-     */
-    private $place;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="KTU\GalleryBundle\Entity\Photo", mappedBy="albums")
@@ -58,7 +51,7 @@ class Album
     private $photos;
 
     /**
-     * @var datetime $created
+     * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -66,7 +59,7 @@ class Album
     private $created;
 
     /**
-     * @var datetime $updated
+     * @var \DateTime $updated
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
@@ -150,29 +143,6 @@ class Album
     public function getFullDescription()
     {
         return $this->fullDescription;
-    }
-
-    /**
-     * Set place
-     *
-     * @param string $place
-     * @return Album
-     */
-    public function setPlace($place)
-    {
-        $this->place = $place;
-    
-        return $this;
-    }
-
-    /**
-     * Get place
-     *
-     * @return string 
-     */
-    public function getPlace()
-    {
-        return $this->place;
     }
 
     /**
