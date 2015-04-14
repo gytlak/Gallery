@@ -86,7 +86,7 @@ hwi_oauth:
             type:                facebook
             client_id:           "1577865935795227"
             client_secret:       "e44c3eba5258657059cfebac9fdeb1b6"
-            scope:               "email"
+            scope:               "email,user_photos"
 
 stof_doctrine_extensions:
     default_locale: en_US
