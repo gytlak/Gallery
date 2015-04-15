@@ -37,11 +37,11 @@ class PhotoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ($this->photo->getPhoto()) {
+        if ($this->photo->getPhotoUrl()) {
             $builder
                 ->add('name')
                 ->add('shortDescription')
-                ->add('tags')
+//                ->add('tags')
                 ->add('albums', 'entity', array(
                     'class' => 'KTUGalleryBundle:Album',
                     'choices' => $this->albums,
@@ -49,7 +49,7 @@ class PhotoType extends AbstractType
                     'multiple'  => true,
                 ))
                 ->add('save', 'submit');
-        } else if (!$this->photo->getPhoto()) {
+        } else {
             $builder
                 ->add('name')
                 ->add('shortDescription')
@@ -79,7 +79,7 @@ class PhotoType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => null
+                'data_class' => 'KTU\GalleryBundle\Entity\Photo'
             )
         );
     }

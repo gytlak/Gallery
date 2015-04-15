@@ -98,15 +98,14 @@ class PhotoService
     }
 
     /**
-     * Gets photo object by photo id and returns it.
-     * If no photo is found, creates new photo object and returns it.
+     * Gets photo object by photo id and returns it. Also checks if user can modify it.
      *
      * @param $id
      * @param $user
      * @param $admin
-     * @return \KTU\GalleryBundle\Entity\Photo
+     * @return \KTU\GalleryBundle\Entity\Photo|null
      */
-    public function setPhoto(&$id, $user, $admin)
+    public function getUserPhoto(&$id, $user, $admin)
     {
         $photo = $this->entityManager->getRepository('KTUGalleryBundle:Photo')->find($id);
 
@@ -114,9 +113,7 @@ class PhotoService
             return $photo;
         }
 
-        $photo = new Photo();
         $id = 0;
-
-        return $photo;
+        return null;
     }
 }

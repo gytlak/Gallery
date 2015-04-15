@@ -106,16 +106,25 @@ class PhotoController extends Controller
             $albums = $albumService->getAlbumsByUser($user);
         }
 
-        $photo = $photoService->setPhoto($id, $user, $admin);
+        $photo = $photoService->getUserPhoto($id, $user, $admin);
 
-
-        $form = $this->createForm(
-            new PhotoType($photo, $albums),
-            null,
-            array(
-                'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
-            )
-        );
+        if ($photo) {
+            $form = $this->createForm(
+                new PhotoType($photo, $albums),
+                $photo,
+                array(
+                    'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
+                )
+            );
+        } else {
+            $form = $this->createForm(
+                new PhotoType($photo, $albums),
+                null,
+                array(
+                    'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
+                )
+            );
+        }
 
         return $this->render(
             'KTUGalleryBundle:Photo:form.html.twig',
@@ -146,7 +155,6 @@ class PhotoController extends Controller
         $albumService = $this->get('ktu_gallery.album_service');
 
         $user = $this->get('security.context')->getToken()->getUser();
-
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $albums = $albumService->getAlbums();
         } else {
@@ -159,21 +167,28 @@ class PhotoController extends Controller
 
         if ($form->isValid()) {
             $i=1;
-            foreach ($form->getData()['photos'] as $item) {
-                $document = new Photo();
-                $document->setName($form->getData()['name'] . ' ' . $i);
-                $document->setPhoto($item);
-                $document->setUserId($user);
-                $document->setShortDescription($form->getData()['shortDescription']);
-                $document->setAlbums($form->getData()['albums']);
-                foreach (explode(',', $form->getData()['tags']) as $tag) {
-                    $documentTag = new Tag();
-                    $documentTag->setPhoto($document);
-                    $documentTag->setName($tag);
-                    $document->addTag($documentTag);
+            if ($form->getData() instanceof Photo) {
+                $photo->setName($form->getData()->getName());
+                $photo->setShortDescription($form->getData()->getShortDescription());
+                $photo->setAlbums($form->getData()->getAlbums());
+                $em->persist($photo);
+            } else {
+                foreach ($form->getData()['photos'] as $item) {
+                    $document = new Photo();
+                    $document->setName($form->getData()['name'] . ' ' . $i);
+                    $document->setPhoto($item);
+                    $document->setUserId($user);
+                    $document->setShortDescription($form->getData()['shortDescription']);
+                    $document->setAlbums($form->getData()['albums']);
+                    foreach (explode(',', $form->getData()['tags']) as $tag) {
+                        $documentTag = new Tag();
+                        $documentTag->setPhoto($document);
+                        $documentTag->setName($tag);
+                        $document->addTag($documentTag);
+                    }
+                    $em->persist($document);
+                    $i++;
                 }
-                $em->persist($document);
-                $i++;
             }
             $em->flush();
         }
