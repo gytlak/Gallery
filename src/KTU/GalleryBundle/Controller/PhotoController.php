@@ -3,6 +3,7 @@ namespace KTU\GalleryBundle\Controller;
 
 use KTU\GalleryBundle\Entity\Photo;
 use KTU\GalleryBundle\Entity\Tag;
+use KTU\GalleryBundle\Form\PhotoEditType;
 use KTU\GalleryBundle\Form\PhotoType;
 use KTU\GalleryBundle\Service\PhotoService;
 use KTU\GalleryBundle\Service\AlbumService;
@@ -110,15 +111,15 @@ class PhotoController extends Controller
 
         if ($photo) {
             $form = $this->createForm(
-                new PhotoType($photo, $albums),
+                new PhotoEditType($photo, $albums),
                 $photo,
                 array(
-                    'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
+                    'action' => $this->generateUrl('ktu_photo_edit', array('id' => $id)),
                 )
             );
         } else {
             $form = $this->createForm(
-                new PhotoType($photo, $albums),
+                new PhotoType($albums),
                 null,
                 array(
                     'action' => $this->generateUrl('ktu_photo_post', array('id' => $id)),
@@ -138,18 +139,11 @@ class PhotoController extends Controller
      * Posts photo and redirects to homepage.
      *
      * @param Request $request
-     * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function postAction(Request $request, $id)
+    public function postAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $photo = $em->getRepository('KTUGalleryBundle:Photo')->find($id);
-
-        if (!$photo) {
-            $photo = new Photo();
-        }
 
         /** @var AlbumService $albumService */
         $albumService = $this->get('ktu_gallery.album_service');
@@ -161,35 +155,65 @@ class PhotoController extends Controller
             $albums = $albumService->getAlbumsByUser($user);
         }
 
-        $form = $this->createForm(new PhotoType($photo, $albums), null);
+        $form = $this->createForm(new PhotoType($albums), null);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $i=1;
-            if ($form->getData() instanceof Photo) {
-                $photo->setName($form->getData()->getName());
-                $photo->setShortDescription($form->getData()->getShortDescription());
-                $photo->setAlbums($form->getData()->getAlbums());
-                $em->persist($photo);
-            } else {
-                foreach ($form->getData()['photos'] as $item) {
-                    $document = new Photo();
-                    $document->setName($form->getData()['name'] . ' ' . $i);
-                    $document->setPhoto($item);
-                    $document->setUserId($user);
-                    $document->setShortDescription($form->getData()['shortDescription']);
-                    $document->setAlbums($form->getData()['albums']);
-                    foreach (explode(',', $form->getData()['tags']) as $tag) {
-                        $documentTag = new Tag();
-                        $documentTag->setPhoto($document);
-                        $documentTag->setName($tag);
-                        $document->addTag($documentTag);
-                    }
-                    $em->persist($document);
-                    $i++;
+            foreach ($form->getData()['photos'] as $item) {
+                $document = new Photo();
+                $document->setName($form->getData()['name'] . ' ' . $i);
+                $document->setPhoto($item);
+                $document->setUserId($user);
+                $document->setShortDescription($form->getData()['shortDescription']);
+                $document->setAlbums($form->getData()['albums']);
+                foreach (explode(',', $form->getData()['tags']) as $tag) {
+                    $documentTag = new Tag();
+                    $documentTag->setPhoto($document);
+                    $documentTag->setName($tag);
+                    $document->addTag($documentTag);
                 }
+                $em->persist($document);
+                $i++;
             }
+            $em->flush();
+        }
+        return $this->redirect($this->generateUrl('ktu_gallery_homepage'));
+    }
+
+    /**
+     * Posts photo and redirects to homepage.
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $photo = $em->getRepository('KTUGalleryBundle:Photo')->find($id);
+
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('ktu_gallery.album_service');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $albums = $albumService->getAlbums();
+        } else {
+            $albums = $albumService->getAlbumsByUser($user);
+        }
+
+        $form = $this->createForm(new PhotoEditType($photo, $albums), null);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $photo->setName($form->getData()->getName());
+            $photo->setShortDescription($form->getData()->getShortDescription());
+            $photo->setAlbums($form->getData()->getAlbums());
+            $em->persist($photo);
             $em->flush();
         }
         return $this->redirect($this->generateUrl('ktu_gallery_homepage'));

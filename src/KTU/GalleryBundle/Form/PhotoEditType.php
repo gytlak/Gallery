@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use KTU\GalleryBundle\Entity\Photo;
 
-class PhotoType extends AbstractType
+class PhotoEditType extends AbstractType
 {
     /**
      * @var \KTU\GalleryBundle\Entity\Photo
@@ -19,10 +19,12 @@ class PhotoType extends AbstractType
     protected $albums;
 
     /**
+     * @param Photo $photo
      * @param array $albums
      */
-    public function __construct (array $albums)
+    public function __construct (Photo $photo, array $albums)
     {
+        $this->photo = $photo;
         $this->albums = $albums;
     }
 
@@ -38,20 +40,12 @@ class PhotoType extends AbstractType
         $builder
             ->add('name')
             ->add('shortDescription')
-            ->add('tags')
+//                ->add('tags')
             ->add('albums', 'entity', array(
                 'class' => 'KTUGalleryBundle:Album',
                 'choices' => $this->albums,
                 'required' => true,
                 'multiple'  => true,
-            ))
-            ->add('photos', 'file', array(
-                'required' => true,
-                'multiple' => true,
-                'attr'  => [
-                    'accept' => 'image/*',
-                    'multiple' => 'multiple',
-                ],
             ))
             ->add('save', 'submit');
     }
@@ -63,7 +57,7 @@ class PhotoType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => null
+                'data_class' => 'KTU\GalleryBundle\Entity\Photo'
             )
         );
     }

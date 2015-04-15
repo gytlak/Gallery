@@ -63,8 +63,12 @@ ktu_photo_delete:
             id:  \d+
 
 ktu_photo_post:
-    pattern: /admin/photo/post/{id}
-    defaults: { _controller: KTUGalleryBundle:Photo:post, id: 0 }
+    pattern: /admin/photo/post
+    defaults: { _controller: KTUGalleryBundle:Photo:post }
+
+ktu_photo_edit:
+    pattern: /admin/photo/edit/{id}
+    defaults: { _controller: KTUGalleryBundle:Photo:edit, id: 0 }
     requirements:
             id:  \d+
 
