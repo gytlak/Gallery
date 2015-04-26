@@ -14,17 +14,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Tag
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      *
+     * @ORM\Id
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -51,22 +43,6 @@ class Tag
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

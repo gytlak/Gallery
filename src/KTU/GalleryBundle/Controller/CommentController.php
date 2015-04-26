@@ -21,16 +21,16 @@ class CommentController extends Controller
         $comment_form = $this->createForm(
             new CommentType(),
             new Comment(),
-            array(
-                'action' => $this->generateUrl('ktu_comment_post', array('id' => $id)),
-            )
+            [
+                'action' => $this->generateUrl('ktu_comment_post', ['id' => $id]),
+            ]
         );
 
         return $this->render(
             'KTUGalleryBundle:Comment:form.html.twig',
-            array(
+            [
                 'comment_form' => $comment_form->createView()
-            )
+            ]
         );
     }
 
@@ -54,9 +54,9 @@ class CommentController extends Controller
         if ($admin) {
             $em->remove($comment);
             $em->flush();
-            return new Response(json_encode(array('status' => 'OK')));
+            return new Response(json_encode(['status' => 'OK']));
         } else {
-            return new Response(json_encode(array('status' => 'ERROR')));
+            return new Response(json_encode(['status' => 'ERROR']));
         }
     }
 
@@ -73,7 +73,7 @@ class CommentController extends Controller
         $photo = $em->getRepository('KTUGalleryBundle:Photo')->find($id);
 
         if(!$photo) {
-            return new Response('ERROR');
+            return new Response(json_encode(['status' => 'ERROR']));
         }
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -89,6 +89,6 @@ class CommentController extends Controller
             $em->flush();
         }
 
-        return new Response('OK');
+        return new Response(json_encode(['status' => 'OK']));
     }
 }

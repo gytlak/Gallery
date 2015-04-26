@@ -17,18 +17,18 @@ class TagController extends Controller
      * @param $name
      * @return Response
      */
-    public function indexAction($name)
+    public function resultsAction($name)
     {
         $em = $this->getDoctrine()->getManager();
 
         $tags = $em->getRepository('KTUGalleryBundle:Tag')
-                ->findBy(array('name' => $name), array('id' => 'DESC'));
+                ->findBy(['name' => $name]);
 
         return $this->render(
-            'KTUGalleryBundle:Tag:index.html.twig',
-            array(
+            'KTUGalleryBundle:Tag:results.html.twig',
+            [
                 'tags' => $tags
-            )
+            ]
         );
     }
 
@@ -37,21 +37,21 @@ class TagController extends Controller
      *
      * @return Response
      */
-    public function formAction()
+    public function searchAction()
     {
         $form = $this->createForm(
             new TagType(true),
             new Tag(),
-            array(
+            [
                 'action' => $this->generateUrl('ktu_search_post'),
-            )
+            ]
         );
 
         return $this->render(
-            'KTUGalleryBundle:Tag:form.html.twig',
-            array(
+            'KTUGalleryBundle:Tag:search.html.twig',
+            [
                 'search_form' => $form->createView()
-            )
+            ]
         );
     }
 
@@ -68,7 +68,7 @@ class TagController extends Controller
         $form->handleRequest($request);
         $tag = $form->getData();
         $name = $tag->getName();
-        return $this->redirect($this->generateUrl('ktu_search_results', array('name' => $name)));
+        return $this->redirect($this->generateUrl('ktu_search_results', ['name' => $name]));
     }
 
 }

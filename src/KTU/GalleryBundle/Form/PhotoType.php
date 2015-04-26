@@ -38,21 +38,26 @@ class PhotoType extends AbstractType
         $builder
             ->add('name')
             ->add('shortDescription')
-            ->add('tags')
-            ->add('albums', 'entity', array(
+            ->add('tags', 'collection', [
+                'type'         => new TagType(false),
+                'allow_add'    => true,
+                'prototype' => true,
+                'by_reference' => false,
+            ])
+            ->add('albums', 'entity', [
                 'class' => 'KTUGalleryBundle:Album',
                 'choices' => $this->albums,
                 'required' => true,
                 'multiple'  => true,
-            ))
-            ->add('photos', 'file', array(
+            ])
+            ->add('photos', 'file', [
                 'required' => true,
                 'multiple' => true,
                 'attr'  => [
                     'accept' => 'image/*',
                     'multiple' => 'multiple',
                 ],
-            ))
+            ])
             ->add('save', 'submit');
     }
 
@@ -61,11 +66,9 @@ class PhotoType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => null
-            )
-        );
+        $resolver->setDefaults([
+            'data_class' => null
+        ]);
     }
 
     /**

@@ -16,8 +16,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('send', 'submit')
-        ;
+            ->add('send', 'submit');
     }
 
     /**
@@ -25,9 +24,9 @@ class CommentType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'KTU\GalleryBundle\Entity\Comment'
-        ));
+        ]);
     }
 
     /**

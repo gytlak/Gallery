@@ -40,13 +40,18 @@ class PhotoEditType extends AbstractType
         $builder
             ->add('name')
             ->add('shortDescription')
-//                ->add('tags')
-            ->add('albums', 'entity', array(
+            ->add('tags', 'collection', [
+                'type'         => new TagType(false),
+                'allow_add'    => true,
+                'prototype' => true,
+                'by_reference' => false,
+            ])
+            ->add('albums', 'entity', [
                 'class' => 'KTUGalleryBundle:Album',
                 'choices' => $this->albums,
                 'required' => true,
                 'multiple'  => true,
-            ))
+            ])
             ->add('save', 'submit');
     }
 
@@ -55,11 +60,9 @@ class PhotoEditType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'KTU\GalleryBundle\Entity\Photo'
-            )
-        );
+        $resolver->setDefaults([
+            'data_class' => 'KTU\GalleryBundle\Entity\Photo'
+        ]);
     }
 
     /**

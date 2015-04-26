@@ -366,24 +366,6 @@ class Photo
     }
 
     /**
-     * @param Tag $tag
-     */
-    public function addTags(Tag $tag)
-    {
-        $this->tags[] = $tag;
-        $tag->setPhoto($this);
-    }
-
-    /**
-     * @param Tag $tag
-     */
-    public function removeTags(Tag $tag)
-    {
-        $this->tags->removeElement($tag);
-    }
-
-
-    /**
      * Remove albums
      *
      * @param \KTU\GalleryBundle\Entity\Album $albums

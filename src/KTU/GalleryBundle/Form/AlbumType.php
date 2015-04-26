@@ -40,9 +40,14 @@ class AlbumType extends AbstractType
             $builder
                 ->add('name')
                 ->add('fullDescription')
-                ->add('titlePhoto', 'entity', array(
-                    'class' => 'KTUGalleryBundle:Photo',
-                    'choices' => $this->album->getPhotos()))
+                ->add(
+                    'titlePhoto',
+                    'entity',
+                    [
+                        'class' => 'KTUGalleryBundle:Photo',
+                        'choices' => $this->album->getPhotos()
+                    ]
+                )
                 ->add('save', 'submit');
         }
     }
@@ -52,11 +57,9 @@ class AlbumType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'KTU\GalleryBundle\Entity\Album'
-            )
-        );
+        $resolver->setDefaults([
+            'data_class' => 'KTU\GalleryBundle\Entity\Album'
+        ]);
     }
 
     /**
