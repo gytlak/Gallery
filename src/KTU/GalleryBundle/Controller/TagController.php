@@ -21,13 +21,12 @@ class TagController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $tags = $em->getRepository('KTUGalleryBundle:Tag')
-                ->findBy(['name' => $name]);
+        $tag = $em->getRepository('KTUGalleryBundle:Tag')->find($name);
 
         return $this->render(
             'KTUGalleryBundle:Tag:results.html.twig',
             [
-                'tags' => $tags
+                'tag' => $tag
             ]
         );
     }

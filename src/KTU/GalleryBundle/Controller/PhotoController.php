@@ -2,6 +2,7 @@
 namespace KTU\GalleryBundle\Controller;
 
 use KTU\GalleryBundle\Entity\Photo;
+use KTU\GalleryBundle\Entity\Tag;
 use KTU\GalleryBundle\Form\PhotoEditType;
 use KTU\GalleryBundle\Form\PhotoType;
 use KTU\GalleryBundle\Service\PhotoService;
@@ -119,10 +120,10 @@ class PhotoController extends Controller
      */
     public function postAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         /** @var AlbumService $albumService */
         $albumService = $this->get('ktu_gallery.album_service');
+        /** @var PhotoService $photoService */
+        $photoService = $this->get('ktu_gallery.photo_service');
 
         $user = $this->get('security.context')->getToken()->getUser();
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -133,29 +134,8 @@ class PhotoController extends Controller
 
         $form = $this->createForm(new PhotoType($albums), null);
 
-        $form->handleRequest($request);
+        $photoService->savePhoto($form, $request, $user);
 
-        if ($form->isValid()) {
-            $i=1;
-            foreach ($form->getData()['photos'] as $item) {
-                $document = new Photo();
-                if (count($form->getData()['photos']) > 1) {
-                    $document->setName($form->getData()['name'] . ' ' . $i);
-                } else {
-                    $document->setName($form->getData()['name']);
-                }
-                $document->setPhoto($item);
-                $document->setUserId($user);
-                $document->setShortDescription($form->getData()['shortDescription']);
-                $document->setAlbums($form->getData()['albums']);
-                foreach ($form->getData()['tags'] as $tag) {
-                    $document->addTag($tag);
-                }
-                $em->persist($document);
-                $i++;
-            }
-            $em->flush();
-        }
         return $this->redirect($this->generateUrl('ktu_gallery_homepage'));
     }
 
@@ -183,14 +163,25 @@ class PhotoController extends Controller
             $albums = $albumService->getAlbumsByUser($user);
         }
 
-        $form = $this->createForm(new PhotoEditType($photo, $albums), null);
+        $form = $this->createForm(new PhotoEditType($photo, $albums));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $photo->setName($form->getData()->getName());
             $photo->setShortDescription($form->getData()->getShortDescription());
             $photo->setAlbums($form->getData()->getAlbums());
-            $photo->setTags($form->getData()->getTags());
+            /** @var Tag $tag */
+            foreach ($form->getData()->getTags() as $tag) {
+                $existingTag = $em->getRepository('KTUGalleryBundle:Tag')->find($tag->getName());
+
+                if ($existingTag) {
+                    if (!$photo->getTags()->contains($existingTag)) {
+                        $photo->addTag($existingTag);
+                    }
+                } else {
+                    $photo->addTag($tag);
+                }
+            }
             $em->persist($photo);
             $em->flush();
         }

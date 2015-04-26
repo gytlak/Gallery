@@ -30,18 +30,18 @@ jQuery(document).ready(function() {
         // get the new index
         var index = $collectionHolder.data('index');
 
+        // Remove label in forms HTML
+        var newForm = prototype.replace(/<label class="required">__name__label__<\/label>/g, '');
+
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
-        var newForm = prototype.replace(/__name__/g, index);
-
-        // Replace 'label__' in forms HTML to nothing
-        var newFormLabel = newForm.replace(/label__/g, '');
+        newForm = newForm.replace(/__name__/g, index);
 
         // increase the index with one for the next item
         $collectionHolder.data('index', index + 1);
 
         // Display the form in the page in a div, before the "Add a tag" link li
-        var $newFormLi = $('<div></div>').append(newFormLabel);
+        var $newFormLi = $('<div></div>').append(newForm);
         $newLinkLi.before($newFormLi);
     }
 });

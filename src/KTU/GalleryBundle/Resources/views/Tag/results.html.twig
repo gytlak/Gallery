@@ -8,21 +8,21 @@
 {% block content %}
 
     <div class="w-container">
-        {% if tags is not empty %}
-            {% for tag in tags|batch(4) %}
+        {% if tag is not empty %}
+            {% for row in tag.photos|batch(4) %}
                 <div class="w-row">
-                    {% for photo in tag %}
+                    {% for photo in row %}
                         <div class="w-col w-col-3 w-col-small-6">
-                            <a class="popup link" href="{{ path('ktu_gallery_photo', {id: photo.photo.id}) }}">
-                                <img alt="{{ photo.photo.name }}" src="{{ vich_uploader_asset(photo.photo, 'photo') | apply_filter('list_thumb') }}" />
-                                <h3>{{ photo.photo.name }}</h3>
+                            <a class="popup link" href="{{ path('ktu_gallery_photo', {id: photo.id}) }}">
+                                <img alt="{{ photo.name }}" src="{{ vich_uploader_asset(photo, 'photo') | apply_filter('list_thumb') }}" />
+                                <h3>{{ photo.name }}</h3>
                             </a>
-                            <p>{{ photo.photo.shortDescription }}</p>
+                            <p>{{ photo.shortDescription }}</p>
 
-                            {% if (is_granted("ROLE_ADMIN") or app.user == photo.photo.userId) %}
+                            {% if (is_granted("ROLE_ADMIN") or app.user == photo.userId) %}
                                 <p>
-                                    <a class="delete link" href="{{ path('ktu_photo_delete', {id: photo.photo.id}) }}">Remove</a> |
-                                    <a class="link" href="{{ path('ktu_photo_form', {id: photo.photo.id}) }}">Edit</a>
+                                    <a class="delete link" href="{{ path('ktu_photo_delete', {id: photo.id}) }}">Remove</a> |
+                                    <a class="link" href="{{ path('ktu_photo_form', {id: photo.id}) }}">Edit</a>
                                 </p>
                             {% endif %}
                         </div>

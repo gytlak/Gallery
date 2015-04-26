@@ -102,7 +102,11 @@ class Photo
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="KTU\GalleryBundle\Entity\Tag", mappedBy="photo", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="KTU\GalleryBundle\Entity\Tag", inversedBy="photos", cascade={"persist"})
+     * @ORM\JoinTable(name="photos_tags",
+     *      joinColumns={@ORM\JoinColumn(name="Photo_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="Tag_name", referencedColumnName="name")}
+     *      )
      */
     private $tags;
 
@@ -348,24 +352,6 @@ class Photo
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $tags
-     */
-    public function setTags(\Doctrine\Common\Collections\Collection $tags){
-        $this->tags = $tags;
-        foreach ($tags as $tag){
-            $tag->setPhoto($this);
-        }
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
      * Remove albums
      *
      * @param \KTU\GalleryBundle\Entity\Album $albums
@@ -422,25 +408,36 @@ class Photo
     }
 
     /**
-     * Add tags
+     * Add tag
      *
-     * @param \KTU\GalleryBundle\Entity\Tag $tags
+     * @param \KTU\GalleryBundle\Entity\Tag $tag
+     *
      * @return Photo
      */
-    public function addTag(\KTU\GalleryBundle\Entity\Tag $tags)
+    public function addTag(\KTU\GalleryBundle\Entity\Tag $tag)
     {
-        $this->tags[] = $tags;
-    
+        $this->tags[] = $tag;
+
         return $this;
     }
 
     /**
-     * Remove tags
+     * Remove tag
      *
-     * @param \KTU\GalleryBundle\Entity\Tag $tags
+     * @param \KTU\GalleryBundle\Entity\Tag $tag
      */
-    public function removeTag(\KTU\GalleryBundle\Entity\Tag $tags)
+    public function removeTag(\KTU\GalleryBundle\Entity\Tag $tag)
     {
-        $this->tags->removeElement($tags);
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

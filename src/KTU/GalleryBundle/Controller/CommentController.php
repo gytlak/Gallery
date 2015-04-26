@@ -73,7 +73,7 @@ class CommentController extends Controller
         $photo = $em->getRepository('KTUGalleryBundle:Photo')->find($id);
 
         if(!$photo) {
-            return new Response(json_encode(['status' => 'ERROR']));
+            return new Response('ERROR');
         }
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -89,6 +89,6 @@ class CommentController extends Controller
             $em->flush();
         }
 
-        return new Response(json_encode(['status' => 'OK']));
+        return new Response('OK');
     }
 }

@@ -22,12 +22,16 @@ class Tag
     private $name;
 
     /**
-     * @var \KTU\GalleryBundle\Entity\Photo
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToOne(targetEntity="KTU\GalleryBundle\Entity\Photo", inversedBy="tags", cascade={"persist"})
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToMany(targetEntity="KTU\GalleryBundle\Entity\Photo", mappedBy="tags", cascade={"persist"})
      */
-    private $photo;
+    private $photos;
+
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @param string $name
@@ -46,19 +50,36 @@ class Tag
     }
 
     /**
+     * Add photo
+     *
      * @param \KTU\GalleryBundle\Entity\Photo $photo
+     *
+     * @return Tag
      */
-    public function setPhoto(Photo $photo)
+    public function addPhoto(\KTU\GalleryBundle\Entity\Photo $photo)
     {
-        $this->photo = $photo;
+        $this->photos[] = $photo;
+
+        return $this;
     }
 
     /**
-     * @return \KTU\GalleryBundle\Entity\Photo
+     * Remove photo
+     *
+     * @param \KTU\GalleryBundle\Entity\Photo $photo
      */
-    public function getPhoto()
+    public function removePhoto(\KTU\GalleryBundle\Entity\Photo $photo)
     {
-        return $this->photo;
+        $this->photos->removeElement($photo);
     }
 
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
 }
