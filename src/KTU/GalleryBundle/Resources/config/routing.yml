@@ -2,6 +2,10 @@ ktu_gallery_homepage:
     path: /
     defaults: { _controller: KTUGalleryBundle:Album:albums }
 
+ktu_gallery_user_albums:
+    path: /albums/
+    defaults: { _controller: KTUGalleryBundle:Album:userAlbums }
+
 ktu_gallery_album:
     path: /album/{id}
     defaults: { _controller: KTUGalleryBundle:Album:album }

@@ -54,6 +54,25 @@ class AlbumController extends Controller
     }
 
     /**
+     * Gets user albums from album service and renders them.
+     *
+     * @return Response
+     */
+    public function userAlbumsAction()
+    {
+        /** @var AlbumService $albumService */
+        $albumService = $this->get('ktu_gallery.album_service');
+        $albums = $albumService->getAlbumsByUser($this->get('security.context')->getToken()->getUser());
+
+        return $this->render(
+            'KTUGalleryBundle:Album:albums.html.twig',
+            [
+                'albums' => $albums
+            ]
+        );
+    }
+
+    /**
      * Deletes album by album id using album service.
      * Creates a response.
      *
