@@ -1,13 +1,10 @@
 <?php
 namespace KTU\GalleryBundle\Service;
 
-
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use KTU\GalleryBundle\Entity\Photo;
 use KTU\GalleryBundle\Entity\Tag;
 use KTU\GalleryBundle\Entity\User;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +13,7 @@ class PhotoService
 {
 
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var EntityManager
      */
     protected $entityManager;
 
@@ -26,9 +23,9 @@ class PhotoService
     protected $photos = null;
 
     /**
-     * @param ObjectManager $em
+     * @param EntityManager $em
      */
-    public function __construct(ObjectManager $em)
+    public function __construct(EntityManager $em)
     {
         $this->entityManager = $em;
     }

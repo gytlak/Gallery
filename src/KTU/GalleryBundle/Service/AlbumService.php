@@ -37,7 +37,7 @@ class AlbumService
     {
         if(!$this->albums) {
             $this->albums = $this->entityManager->getRepository('KTUGalleryBundle:Album')
-                ->findBy(array(), array('id' => 'DESC'));
+                ->findBy([], ['id' => 'DESC']);
         }
 
         return $this->albums;
@@ -52,7 +52,7 @@ class AlbumService
     {
         if(!$this->albums) {
             $this->albums = $this->entityManager->getRepository('KTUGalleryBundle:Album')
-                ->findBy(array('userId' => $user), array('id' => 'DESC'));
+                ->findBy(['userId' => $user], ['id' => 'DESC']);
         }
 
         return $this->albums;
