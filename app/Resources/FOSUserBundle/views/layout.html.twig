@@ -1,8 +1,9 @@
-{% extends "::base.html.twig" %}
+{% extends "KTUGalleryBundle::base.html.twig" %}
 
 {% block title %}User{% endblock %}
 {% block head %}
     {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/auth-buttons.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -15,5 +16,11 @@
 
         {% block fos_user_content %}{% endblock %}
     </div>
-    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" alt="Sign in with Facebook">Sign in with Facebook</a><br>
+    <div class="w-container">
+        <h2 class="section-title">or</h2>
+
+        <a class="btn-auth btn-facebook large" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+            Sign in with <b>Facebook</b>
+        </a>
+    </div>
 {% endblock %}

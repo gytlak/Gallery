@@ -1,4 +1,4 @@
-{% extends "::base.html.twig" %}
+{% extends "KTUGalleryBundle::base.html.twig" %}
 
 {% block title %}Photos in {{ album.name }}{% endblock %}
 {% block head %}
@@ -16,7 +16,7 @@
                 </div>
             {% else %}
                 <h1 class="hero-heading">{{ album.name }}</h1>
-                <p class="section-subtitle">{{ album.created|date("Y-m-d") }} | {{ album.userId.username }} | {{ album.place }}</p>
+                <p class="section-subtitle">{{ album.created|date("Y-m-d") }} | {{ album.userId.username }}</p>
                 <p class="hero-subhead">{{ album.fullDescription }}</p>
                 <div class="button-group">
                     <a class="button sign-up" href="{{ path('ktu_photo_form') }}">Add photo</a>
