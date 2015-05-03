@@ -43,6 +43,7 @@ class PhotoType extends AbstractType
                 'allow_add'    => true,
                 'prototype' => true,
                 'by_reference' => false,
+                'options' => ['label' => false]
             ])
             ->add('albums', 'entity', [
                 'class' => 'KTUGalleryBundle:Album',

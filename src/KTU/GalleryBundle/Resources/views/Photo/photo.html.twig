@@ -8,7 +8,7 @@
         <div class="text-column">
             <h2>{{ photo.name }}</h2>
             Uploaded: {{ photo.created|date("Y-m-d") }}<br/>
-            Author: {{ photo.userId.username }}<br/>
+            Author: {{ photo.userId.email }}<br/>
             {% if photo.tags is not empty %}
                 Tags:
                 {% for tag in photo.tags %}
@@ -35,7 +35,7 @@
                         {% if is_granted("ROLE_ADMIN") %}
                             <a href="{{ path('ktu_comment_delete', {id: comment.id}) }}" class="delete">X</a>
                         {% endif %}
-                        <strong>{{ comment.userId.username }}</strong>
+                        <strong>{{ comment.userId.email }}</strong>
                         (<span class="comment-date">{{ comment.created|date("Y-m-d H:i") }}</span>):<br/>
                         {{ comment.comment }}<br/>
                     </div>
