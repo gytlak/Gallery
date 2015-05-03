@@ -19,7 +19,7 @@
                 <p class="section-subtitle">{{ album.created|date("Y-m-d") }} | {{ album.userId.username }}</p>
                 <p class="hero-subhead">{{ album.fullDescription }}</p>
                 <div class="button-group">
-                    <a class="button sign-up" href="{{ path('ktu_photo_form') }}">Add photo</a>
+                    <a class="button sign-up" href="{{ path('ktu_photo_form') }}">New photo</a>
                 </div>
             {% endif %}
         </div>
@@ -54,7 +54,7 @@
             <h2 class="section-title">No photos</h2>
             <p class="section-subtitle">There are currently no photos in this album
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <br/>Hint: To create a photo in this album press "New photo" in the menu above and select {{ album.name }}.
+                    <br/>Hint: To create a photo in this album press "New photo" in the menu above and select <b>{{ album.name }}</b>.
                 {% endif %}
             </p>
         {% endif %}
