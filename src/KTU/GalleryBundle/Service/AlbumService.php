@@ -1,15 +1,12 @@
 <?php
+
 namespace KTU\GalleryBundle\Service;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
 use KTU\GalleryBundle\Entity\Album;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AlbumService
 {
-
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */

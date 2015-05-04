@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PhotoService
 {
-
     /**
      * @var EntityManager
      */
