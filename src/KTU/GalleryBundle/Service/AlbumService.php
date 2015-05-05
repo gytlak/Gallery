@@ -68,9 +68,7 @@ class AlbumService
     {
         $album = $this->entityManager->getRepository('KTUGalleryBundle:Album')->find($id);
 
-        if (!$album) {
-            return false;
-        } else if ($album->getUserId() == $user || $admin) {
+        if ($album && ($album->getUserId() == $user || $admin)) {
             $this->entityManager->remove($album);
             $this->entityManager->flush();
             return true;

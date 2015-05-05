@@ -83,17 +83,12 @@ class PhotoService
     {
         $photo = $this->entityManager->getRepository('KTUGalleryBundle:Photo')->find($id);
 
-        if (!$photo) {
-            return false;
-        } else if ($photo->getUserId() == $user || $admin) {
-            try {
-                $this->entityManager->remove($photo);
-                $this->entityManager->flush();
-            } catch (\Exception $e) {
-                return false;
-            }
+        if ($photo && ($photo->getUserId() == $user || $admin)) {
+            $this->entityManager->remove($photo);
+            $this->entityManager->flush();
             return true;
         }
+
         return false;
     }
 
